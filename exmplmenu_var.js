@@ -81,7 +81,7 @@ function AfterCloseAll(){return}
 Menu1=new Array("Recent Updates: Dec 09","updates.htm","",0,20,150);
 
 Menu2=new Array("Manual Home","index.htm","",0,20,155);
-Menu3=new Array("MacBiophotonics Home","/web/20120208073234/http://www.macbiophotonics.ca","",0,20,200);
+Menu3=new Array("MacBiophotonics Home","http://macbiophotonics.ca/","",0,20,200);
 
 
 Menu4=new Array("About this Manual","about_this_manual.htm","",0,20,150);
