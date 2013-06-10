@@ -1,0 +1,620 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<link rel="File-List" href="/web/20120208073847/http://www.macbiophotonics.ca/imagej/particle_analysis_files/filelist.xml">
+
+<title>MBF_ImageJ - Particle Analysis</title>
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+h1
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:21.6pt;
+	text-align:justify;
+	text-indent:-21.6pt;
+	page-break-before:always;
+	page-break-after:avoid;
+	tab-stops:list 21.6pt;
+	font-size:12.0pt;
+	font-family:Arial;
+	font-variant:small-caps;
+	font-style:italic;
+	}
+h2
+	{margin-top:18.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:28.8pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-indent:-28.8pt;
+	tab-stops:list 28.8pt;
+	font-size:10.0pt;
+	font-family:Arial;
+	}
+h3
+	{margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:40.5pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-indent:-36.0pt;
+	page-break-after:avoid;
+	tab-stops:list 40.5pt;
+	font-size:10.0pt;
+	font-family:Arial;
+	font-style:italic;
+	}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+span.MsoFootnoteReference
+	{vertical-align:super}
+-->
+</style>
+<!--[if !mso]>
+<style>
+v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+</style>
+<![endif]--><!--[if gte mso 9]>
+<xml><o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]-->
+</head>
+
+<body topmargin="0" leftmargin="0">
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="/static/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="/static/js/graph-calc.js" ></script>
+<script type="text/javascript" src="/static/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1388534399999;
+var wbPrefix = "/web/";
+var wbCurrentUrl = "http:\/\/www.macbiophotonics.ca\/imagej\/particle_analysis.htm";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 18;
+var firstYear = 1996;
+var imgWidth = 450;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "8";
+var displayMonth = "Feb";
+var displayYear = "2012";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(/static/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://www.macbiophotonics.ca/imagej/particle_analysis.htm" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20120208073847" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20111215035754/http://www.macbiophotonics.ca/imagej/particle_analysis.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="15 Dec 2011"><strong>DEC</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 7:38:47 Feb 8, 2012">FEB</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20120806040011/http://www.macbiophotonics.ca/imagej/particle_analysis.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="6 Aug 2012"><strong>AUG</strong></a>
+		                
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20120115150856/http://www.macbiophotonics.ca/imagej/particle_analysis.htm" title="15:08:56 Jan 15, 2012" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 7:38:47 Feb 8, 2012">8</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20120806040011/http://www.macbiophotonics.ca/imagej/particle_analysis.htm" title="4:00:11 Aug 6, 2012" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0"/></a>
+		                
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20100704173021/http://www.macbiophotonics.ca/imagej/particle_analysis.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="4 Jul 2010"><strong>2010</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 7:38:47 Feb 8, 2012">2012</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2013
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="/web/20120208073847*/http://www.macbiophotonics.ca/imagej/particle_analysis.htm" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>134 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">7 Apr 07 - 6 Aug 12</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:450px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:450px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="450"
+				height="27"
+				border="0"
+				src="/web/jsp/graph.jsp?graphdata=450_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000000_2007:-1:0002222fea00_2008:-1:100010000000_2009:-1:101101001100_2010:-1:011000100000_2011:-1:000000000111_2012:1:110000010000_2013:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="/static/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="/static/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+
+
+<table border="1" cellspacing="0" width="693" id="AutoNumber1" height="427" style="border-collapse: collapse; border-width: 0" cellpadding="0">
+  <tr>
+    <td width="211" height="138" style="border-style: none; border-width: medium" valign="bottom" rowspan="2" bgcolor="#960033" background="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/images/logo4.jpg" colspan="2">
+    <p style="margin-top: 0; margin-bottom: 0">&nbsp;</td>
+    <td width="354" height="101" style="border-style: none; border-width: medium" nowrap valign="bottom">
+    <p align="center" style="margin-bottom: 12"><i><b>
+      <font color="#960033" face="Arial" size="5">Online Manual for the<br>
+      <font color="#960033">MBF-ImageJ collection</font></font></b></i></td>
+    <td width="280" height="101" style="border-style: none; border-width: medium" nowrap valign="bottom">
+    <p style="margin-bottom: 12" align="right">
+	<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/imagej4microscopy.jpg" width="258" height="54"><b><font face="Comic Sans MS" color="#243A68" size="2"><a target="_blank" href="/web/20120208073847/http://rsb.info.nih.gov/ij/"><br>
+    Link to
+    ImageJ homepage</a></font></b></td>
+  </tr>
+  <tr>
+    <td width="634" height="35" style="border-style: none; border-width: medium" nowrap valign="bottom" colspan="2" background="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/images/grad9.jpg">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/images/grad10-1.jpg" height="285">
+
+
+    &nbsp;</td>
+    <td width="206" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/images/grad10.jpg" height="285">
+<h2 style="margin-top: 3; margin-bottom: 6">
+<script type='text/javascript'>
+
+//HV Menu v5.411- by Ger Versluis (http://www.burmees.nl/)
+//Submitted to Dynamic Drive (http://www.dynamicdrive.com)
+//Visit http://www.dynamicdrive.com for this script and more
+
+function Go(){return}
+
+</script>
+<script type='text/javascript' src='/web/20120208073847js_/http://www.macbiophotonics.ca/imagej/exmplmenu_var.js'></script>
+<script type='text/javascript' src='/web/20120208073847js_/http://www.macbiophotonics.ca/imagej/menu_com.js'></script>
+<noscript>Your browser does not support script</h2>
+</noscript>
+</td>
+    <td width="634" height="285" valign="top" style="border-style: none; border-width: medium" nowrap colspan="2">
+
+<div class="Section1" style="width: 606; height: 604">
+
+<div class="Section1" style="width: 606; height: 679">
+
+<h1><a name="_Toc76807467"><span lang="EN-GB">5<span style="font-style: normal; font-variant: normal; font-weight: normal; ">.
+</span>Particle Analysis</span></a></h1>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">Particle counting can be done 
+automatically if the specimen lends itself to it, i.e. the individual particles 
+can touch – but not too much! If automatic particle counting cannot be done, 
+ImageJ can facilitate manual counting with the “Point Picker” or “Cell counter” 
+plugin. </span></font></p>
+<h2 style="margin-top: 3; margin-bottom: 6"><span lang="EN-GB"><a name="particle_auto">5.1<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Automatic Particle counting</a></span></h2>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">The biggest issue is one referred to as 
+“segmentation” which is to distinguish the object from the background. Once the 
+objects has been successfully segmented, they can then be analysed.</span></font></p>
+<p class="MsoNormal" style="margin-right: -7.5pt; margin-bottom:6; word-spacing:60; margin-top:3"><b>
+<span lang="EN-GB" style="font-family: Arial"><font size="2">&nbsp;RAW Threshold Watershed “AnalyzeParticles” Merge</font></span></b></p>
+<p style="margin-top: 3; margin-bottom:6"><font size="2">
+<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic1.jpg" width="607" height="116"></font></p>
+<h3 style="margin-top: 3; margin-bottom: 6"><a name="threshold"><span lang="EN-GB">5.1.1<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span></span><span lang="en-gb">Setting a threshold</span></a></h3>
+<p style="margin-bottom: 6; margin-top:3"><font size="2">&nbsp;&nbsp;&nbsp;
+</font> <b>
+<font face="Arial" size="2">5.1.1.1 Manual thresholding</font></b></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">Automatic 
+particle analysis requires the image to be a “binary” image i.e. black or white. 
+The software needs to know exactly where the edges are to perform morphology 
+measurements. A “threshold” range is set and pixels in the image whose value 
+lies in this range are converted to black; pixels with values outside this range 
+are converted to white (or vice-versa depending on what the user requests).
+</span></font></p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-width: 0" bordercolor="#111111" width="100%" id="AutoNumber2">
+  <tr>
+    <td width="29%" style="border-style: none; border-width: medium">
+    <p style="margin-top: 3; margin-bottom: 6"><font size="2">
+    <img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic6.jpg" width="224" height="117"></font></td>
+    <td width="71%" valign="top" style="border-style: none; border-width: medium">
+    <p style="margin-top: 3; margin-bottom: 6">
+    <font face="Arial" size="2"><span lang="EN-GB">There are several ways to set 
+thresholds. For monochrome images it is most simply done via thee menu command “<i>Image/Adjust/Threshold</i>”. 
+While the threshold is being set, the pixels within the threshold range are 
+displayed in red. The user then changes then “<i>Apply</i>” the threshold and 
+the image will be converted to a binary image. </span></font></td>
+  </tr>
+</table>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">&nbsp;</p>
+<p class="MsoNormal" style="text-align: left; margin-top:3; margin-bottom:6">
+<font face="Arial" size="2"><span lang="EN-GB">
+<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic7.jpg" align="right" width="300" height="298">For 
+colour images, setting the threshold is a bit more complicated as each of the 
+red, green and blue channels require different threshold ranges. The plugin “<i><span style="color: navy">Plugins/Colour 
+functions/Threshold Colour</span></i></span><!--[if supportFields]><span lang="EN-GB"> 
+XE &quot;<i><span style="color: navy"> Threshold Colour: </span></i>G. Landini.
+<a href="/web/20120208073847/http://www.dentistry.bham.ac.uk/landinig/software/software.html" style="color: blue; text-decoration: underline; text-underline: single">
+<span style="color: windowtext; text-decoration: none">
+/web/20120208073847/http://www.dentistry.bham.ac.uk/landinig/software/software.html</span></a></span>”<![endif]--></font><!--[if supportFields]><![endif]--><font face="Arial" size="2"><i><span lang="EN-GB">”</span></i><span lang="EN-GB"> 
+can be used to do this most easily. This opens a fairly complicated and 
+extensive control window. The simplest way to perform a colour threshold is to 
+use one of the selection tools to select one of the objects of interest, and 
+then click the “S<i>ample</i>” button in the “<i>Threshold Colour</i>” control 
+window. This should remove the pixels in the image that do not have pixels of 
+the same colour as those in the selection. The thresholding can be manually 
+tweaked with scroll bars in the histogram panes. It may be easier to 
+conceptualise what you are doing at this point by switching the Control window 
+from the default Hue, Saturation and Brightness colour model to red, green blue 
+model by switching the option buttons at the bottom of the control window. The 
+image can be displayed as a binary image with the “Threshold” button, and 
+converted to a binary image via the menu command <i>“Image/Type/8-bit</i>” (?!).</span></font></p>
+<p style="margin-bottom: 6; margin-top:3"><font size="2">&nbsp;</font><b><font face="Arial" size="2">5.1.1.2 
+Automatic thresholding<a name="auto"></a></font></b></p>
+<p style="margin-top: 3; margin-bottom:6"><span lang="en-gb"><font face="Arial" size="2">One 
+concern with setting a threshold manually is the potential to introduce 
+user-bias. There are many algorithms described to automatically calculate the 
+threshold. A evaluation of over 40 of these can be found in this paper: Sezgin &amp; 
+Sankur. 2004.&nbsp; Survey over image thresholding techniques and quantitative 
+performance evaluation. Journal of Electronic Imaging, 2004. (13:146-165).
+<font color="#000080"><i>MBF ImageJ</i></font> has several plugins found in the 
+menu &quot;<font color="#000080"><i>Plugins/Segmentation</i></font>&quot; for automatic 
+calculation of an image threshold. These include Otsu's thresholding, maximum 
+entropy threshold, mixture modelling thresholding. There is also k-means 
+clustering which can segment an image in to multiple bands and can be used with 
+colour images.</font></span></p>
+<p style="margin-top: 3; margin-bottom: 6"><font size="2">
+<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic2.jpg" width="552" height="282"></font></p>
+<h3 style="margin-top: 3; margin-bottom: 6"><a name="_Toc76807470"><span lang="EN-GB">5.1.2<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Watershed separation</span></a></h3>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">Objects in a binary image that are 
+slightly overlapping may be separated using the menu command “<i>Process/Binary/Watershed”.</i> 
+This segmentation process is nicely illustrated with this figure from the ImageJ 
+documentation web pages (<a href="/web/20120208073847/http://rsb.info.nih.gov/ij/docs/index.html" style="color: blue; text-decoration: underline; text-underline: single">http://rsb.info.nih.gov/ij/docs/index.html</a>).
+</span></font></p>
+<p style="margin-top: 3; margin-bottom: 6"><span lang="EN-GB" style="font-size: 10.0pt; font-family: Times New Roman"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_s1025" type="#_x0000_t75" alt="" style='width:485.25pt;
+ height:110.25pt'>
+ <v:imagedata src="" o:href="/web/20120208073847/http://rsb.info.nih.gov/ij/docs/images/watershed.gif"/>
+</v:shape><![endif]--></span></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">The image first needs to be converted to 
+binary (set via thresholding). The black pixels are then replaced with grey 
+pixels of an intensity proportional to their distance from a white pixel (i.e. 
+black pixels close to the edge are light grey, those closer to the ‘middle) are 
+nearer black. This is the Euclidian distance map (EDM). From this it calculated 
+the centres of the objects the <i>ultimate eroded points</i> (UEPs), i.e. points 
+that are equidistance from the edges. These points ere then dilated until the 
+meet another black pixel, then a watershed line is drawn.</span></font></p>
+<h3 style="margin-top: 3; margin-bottom: 6"><a name="_Toc76807471"><span lang="EN-GB">5.1.3<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Analyse Particles</span></a></h3>
+<p class="MsoNormal" style="margin-right: 12; margin-top:3; margin-bottom:6">
+<font face="Arial" size="2"><span lang="EN-GB">Once 
+the image has been segmented, the menu command “<i>Analyze/Analyze particles”</i> 
+can be used to obtain various information regarding particle size and numbers.
+<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic8.jpg" align="right" width="131" height="192"></span></font></p>
+<p class="MsoNormal" style="margin-right: 12; margin-top:3; margin-bottom:6">
+<font face="Arial" size="2"><span lang="EN-GB">Set the minimum size and maximum size to 
+exclude objects that appear in the binary image that are clearly not objects of 
+interest. Select the “Show: Outlines” option to display an image of the detected 
+objects. This can then be merged with the original for presentation purposes. 
+Invert the outline image and use the menu command “<i>Plugins/Colour 
+functions/Colour merge”</i> to add the original and outline image.</span></font></p>
+<p class="MsoNormal" style="margin-right: 12; margin-top:3; margin-bottom:6">
+<font face="Arial" size="2"><span lang="EN-GB">The particle analysis can be automated 
+via plugins or macros once the correct threshold value and particle size range 
+has been determined for your objects of interest. See the “<i>Plugins/Particle 
+Analysis/ Nucleus counter</i>” plugin and its source code to customise it to 
+your images.</span></font></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">&nbsp;</span></font></p>
+<h3 style="margin-top: 3; margin-bottom: 6"><a name="NucleusCounter">5.1.4 Nucleus Counter</a></h3>
+<p style="margin-top: 3; margin-bottom: 6"><font size="2">This plugin automates many of the steps discussed above. The user can:<br>
+1. Enter the size range which should be counted.<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic9.jpg" align="right" width="224" height="233"><br>
+2. Select the automatic thresholding method. This can be either &quot;Current&quot;, &quot;Otsu&quot;, 
+Maximum Entropy&quot;, &quot;Mixture Modelling&quot; or k-means&quot; clustering. &quot;Current&quot; uses the 
+threshold that has been set manually, see above.<br>
+3. Opt to perform a background correction.<br>
+4. Opt to perform a &quot;Smooth&quot; filter.<br>
+5. Opt to perform a watershed separation.<br>
+6. Opt to add the particles to ROI manager<br>
+7. Opt for a summary.</font></p>
+<p style="margin-top: 3; margin-bottom: 6"><font size="2">Other options can easily be added on request.</font></p>
+<p style="margin-top: 3; margin-bottom: 6"><font size="2">The count, area and average size are returned as a text window and the 
+outlined particles are overlaid on a duplicate of the original image.</font></p>
+<p style="margin-top: 3; margin-bottom: 6"><font size="2">
+<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic5.jpg" width="222" height="196"> </font> </p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">&nbsp;</p>
+<h2 style="margin-top: 3; margin-bottom: 6"><span lang="EN-GB"><a name="particle_manual">5.2<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Manual Counting</a></span></h2>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">You can use the ImageJ toolbar <i>
+Crosshair (mark and count)</i> tool to count particles. However, a greater 
+degree of control can be accessed with the “Point Picker” or “Cell counter” 
+plugin.</span></font></p>
+<h3 style="margin-top: 3; margin-bottom: 6"><a name="_Toc76807474"><span lang="EN-GB">5.2.1<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span></span></a><span lang="EN-GB">Cell 
+Counter<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic10.jpg" align="right" width="361" height="260"></span></h3>
+<p class="MsoNormal" style="margin-right: 12; margin-top:3; margin-bottom:6">
+<font face="Arial" size="2"><span lang="EN-GB">When then “<i><span style="color: navy">Plugins/Particle 
+counting/Cell Counter</span></i>” plugin</span><!--[if supportFields]><i><span lang="EN-GB" style="color: navy"> 
+XE &quot;Cell Counter:</span></i><span lang="EN-GB" style="color: navy"> </span>
+<span lang="EN-GB">Kurt De Vos (kd269@columbia.edu) <i>
+<span style="color: navy">&quot; </span></i></span><![endif]--></font><!--[if supportFields]>
+<![endif]--><font face="Arial" size="2"><span lang="EN-GB">) is run, a new Image window is generated with 
+the original image plus four buttons along the bottom (Red type, Green type, 
+Blue type and Yellow type). Clicking on a button changes the colour of the 
+marking tool. The results table keeps a tally of the number of each of the cell 
+types marked. Clicking the Results button will generate a summary of the data.
+</span></font></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">&nbsp;</span></font></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">&nbsp;</span></font></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">&nbsp;</span></font></p>
+<h3 style="margin-top: 3; margin-bottom: 6"><a name="_Toc76807475"><span lang="EN-GB">5.2.2<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Point Picker</span></a><span lang="EN-GB"> </span></h3>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">“<i><span style="color: navy">Plugins/Particle 
+counting/PointPicker</span></i></span><!--[if supportFields]><i><span lang="EN-GB" style="color: navy"> 
+XE &quot;PointPicker: </span></i><span lang="EN-GB">Philippe Thévenaz (philippe.thevenaz@epfl.ch)<i><span style="color: navy"> 
+&quot; </span></i></span><![endif]--></font><!--[if supportFields]><![endif]-->
+<font face="Arial" size="2"><i>
+<span lang="EN-GB">”.</span></i><span lang="EN-GB"> Running this plugin will 
+change the ImageJ toolbar to the PointPicker toolbar (below).</span></font></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">&nbsp;<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic1.gif" width="526" height="123"></span></font></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">&nbsp;</span></font></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">Crosses 
+are reversibly overlaid on to the image, incrementally changing colour (this 
+differs from the <i>Crosshair </i>tool which irreversible stamps a point in the 
+image). With the Point Picker tool, crosses can be moved and deleted. Once 
+marking is complete, the cross coordinates can be accessed via the
+<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic10.gif" width="26" height="27"> button.</span></font></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+<font face="Arial" size="2"><span lang="EN-GB">
+<img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic11.jpg" align="left" width="77" height="107">This 
+produces the “Point List” dialog allowing you to <i>Show</i>, <i>Save</i> or <i>
+Open</i> the points’ coordinates. Clicking “<i>Show</i>” displays the 
+coordinates in the <i>Results</i> window, where they can be saved or copied to 
+the system clipboard. Once finished, you can return to the regular ImageJ 
+toolbar by clicking the <img border="0" src="/web/20120208073847im_/http://www.macbiophotonics.ca/imagej/partic12.gif" width="26" height="27">&nbsp;button.</span></font></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+&nbsp;</p>
+<h2 style="margin-top: 3; margin-bottom: 6"><a name="_Toc76807472">5.3 Particle tracking</a></h2>
+<p style="margin-top: 3; margin-bottom: 6"><b><font face="Arial" size="2">5.3.1
+</font></b><font face="Arial" size="2"><b>Automatic Tracking</b></font></p>
+<p style="margin-top: 3; margin-bottom: 6"><b><font face="Arial" size="2">
+Particle Tracker</font></b></p>
+<p style="margin-top: 3; margin-bottom: 6">&nbsp;</p>
+<p style="margin-top: 3; margin-bottom: 6"><b><font face="Arial" size="2">
+SpotTracker</font></b></p>
+<p style="margin-top: 3; margin-bottom: 6">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+<font size="2"><b><span style="font-family: Arial">5.3.2 Manual Tracking</span></b></font></span></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+<font size="2"><b><span style="font-family: Arial">MTrackJ</span></b></font></span></p>
+<p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+&nbsp;</p>
+
+  <p>&nbsp;</div>
+
+  <font face="Arial"><span lang="EN-GB">
+</div>
+</span></font></td>
+  </tr>
+</table>
+
+
+</body>
+
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 7:38:47 Feb 8, 2012 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 16:32:09 Mar 6, 2013.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

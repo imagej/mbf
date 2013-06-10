@@ -1,0 +1,752 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>MBF_ImageJ - Intensity vs Time Analysis</title>
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+h1
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:21.6pt;
+	text-align:justify;
+	text-indent:-21.6pt;
+	page-break-before:always;
+	page-break-after:avoid;
+	tab-stops:list 21.6pt;
+	font-size:12.0pt;
+	font-family:Arial;
+	font-variant:small-caps;
+	font-style:italic;
+	}
+h2
+	{margin-top:18.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:28.8pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-indent:-28.8pt;
+	tab-stops:list 28.8pt;
+	font-size:10.0pt;
+	font-family:Arial;
+	}
+h3
+	{margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:40.5pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-indent:-36.0pt;
+	page-break-after:avoid;
+	tab-stops:list 40.5pt;
+	font-size:10.0pt;
+	font-family:Arial;
+	font-style:italic;
+	}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+span.MsoFootnoteReference
+	{vertical-align:super}
+-->
+</style>
+</head>
+
+<body topmargin="0" leftmargin="0">
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="/static/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="/static/js/graph-calc.js" ></script>
+<script type="text/javascript" src="/static/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1388534399999;
+var wbPrefix = "/web/";
+var wbCurrentUrl = "http:\/\/www.macbiophotonics.ca\/imagej\/intensity_vs_time_ana.htm";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 18;
+var firstYear = 1996;
+var imgWidth = 450;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "8";
+var displayMonth = "Feb";
+var displayYear = "2012";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(/static/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20120208073839" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20111214232756/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="14 Dec 2011"><strong>DEC</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 7:38:39 Feb 8, 2012">FEB</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20120314054019/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="14 Mar 2012"><strong>MAR</strong></a>
+		                
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20120115140940/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm" title="14:09:40 Jan 15, 2012" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 7:38:39 Feb 8, 2012">8</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20120314054019/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm" title="5:40:19 Mar 14, 2012" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0"/></a>
+		                
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20091227164117/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="27 Dec 2009"><strong>2009</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 7:38:39 Feb 8, 2012">2012</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2013
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="/web/20120208073839*/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>18 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">30 May 08 - 18 Aug 12</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:450px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:450px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="450"
+				height="27"
+				border="0"
+				src="/web/jsp/graph.jsp?graphdata=450_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000010000001_2009:-1:000001001011_2010:-1:000000000000_2011:-1:000000010111_2012:1:111111110000_2013:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="/static/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="/static/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+
+
+<table border="1" cellspacing="0" width="693" id="AutoNumber1" height="427" style="border-collapse: collapse; border-width: 0" cellpadding="0">
+  <tr>
+    <td width="211" height="138" style="border-style: none; border-width: medium" valign="bottom" rowspan="2" bgcolor="#960033" background="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/images/logo4.jpg" colspan="2">
+    <p style="margin-top: 0; margin-bottom: 0">&nbsp;</td>
+    <td width="354" height="101" style="border-style: none; border-width: medium" nowrap valign="bottom">
+    <p align="center" style="margin-bottom: 12"><i><b>
+      <font color="#960033" face="Arial" size="5">Online Manual for the<br>
+      <font color="#960033">MBF-ImageJ collection</font></font></b></i></td>
+    <td width="280" height="101" style="border-style: none; border-width: medium" nowrap valign="bottom">
+    <p style="margin-bottom: 12" align="right">
+	<img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/imagej4microscopy.jpg" width="258" height="54"><b><font face="Comic Sans MS" color="#243A68" size="2"><a target="_blank" href="/web/20120208073839/http://rsb.info.nih.gov/ij/"><br>
+    Link to
+    ImageJ homepage</a></font></b></td>
+  </tr>
+  <tr>
+    <td width="634" height="35" style="border-style: none; border-width: medium" nowrap valign="bottom" colspan="2" background="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/images/grad9.jpg">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/images/grad10-1.jpg" height="285">
+
+
+    &nbsp;</td>
+    <td width="206" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/images/grad10.jpg" height="285">
+<script type='text/javascript'>
+
+//HV Menu v5.411- by Ger Versluis (http://www.burmees.nl/)
+//Submitted to Dynamic Drive (http://www.dynamicdrive.com)
+//Visit http://www.dynamicdrive.com for this script and more
+
+function Go(){return}
+
+</script>
+<script type='text/javascript' src='/web/20120208073839js_/http://www.macbiophotonics.ca/imagej/exmplmenu_var.js'></script>
+<script type='text/javascript' src='/web/20120208073839js_/http://www.macbiophotonics.ca/imagej/menu_com.js'></script>
+<noscript>Your browser does not support script</noscript>
+</td>
+    <td width="634" height="285" valign="top" style="border-style: none; border-width: medium" nowrap colspan="2">
+
+<div class="Section1" style="width: 606; height: 604">
+
+<div class="Section1" style="width: 606; height: 679">
+
+<div class="Section1">
+  <h1><a name="_Ref43545705"><span lang="EN-GB">4<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="3">.
+  </font>
+  </span>Intensity vs Time analysis</span></a></h1>
+  <h2 style="text-indent: -36.0pt; margin-left: 36.0pt; margin-right: 0cm; margin-top: 3; margin-bottom: 6">
+  <a name="IntvTime_BnC"><span lang="EN-GB">4.1<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+  </font>
+  </span>Brightness and Contrast</span></a><img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens2.jpg" align="right" width="113" height="250"></h2>
+  <p class="MsoNormal" style="margin-right: 12pt; margin-top:3; margin-bottom:6">
+  <font face="Arial" size="2"><span lang="EN-GB">To 
+  improve the visualisation of the image, the displayed brightness and contrast 
+  can be adjusted with “<i>Image/Adjust/Brightness-Contrast</i>” (hotkey: 
+  Shift+C). </span></font></p>
+  <p class="MsoNormal" style="margin-right: 12pt; margin-top:3; margin-bottom:6">
+  <font face="Arial" size="2"><span lang="EN-GB">The “<i>Auto”</i> applies an 
+  intelligent contrast stretch to the <i>way in which the image is displayed</i>. 
+  The brightness and contrast is adjusted based on an analysis of the image's 
+  (or selection’s) histogram. If pressed repeatedly, it allows a progressively 
+  increasing percentage of pixels to become saturated. </span></font></p>
+  <p class="MsoNormal" style="margin-right: 12pt; margin-top:3; margin-bottom:6">
+  <font face="Arial" size="2"><i><span lang="EN-GB">Reset</span></i><span lang="EN-GB"> 
+  changes the “maximum” and “minimum” back to 0 and 255 for 8-bit images and 
+  back to the maximum and minimum of the image’s histogram for 16-bit images.
+  </span></font></p>
+  <p class="MsoNormal" style="margin-right: 12pt; margin-top:3; margin-bottom:6">
+  <font face="Arial" size="2"><span lang="EN-GB">If <i>Auto</i> does not produce a 
+  desirable result, select a region of the cell plus some background with a 
+  region-of-interest (ROI) tool, then hit the “<i>Auto</i>” button again. It 
+  will then do a stretch based on the intensities within the ROI.</span></font></p>
+  <p class="MsoNormal" style="margin-right: 12pt; margin-top:3; margin-bottom:6">
+  <font face="Arial" size="2"><b><span lang="EN-GB">Pressing the <i>Apply</i> button 
+  permanently changes the <i>actual </i>grey values of the image. Don’t press 
+  this button during while analysing image intensity!</span></b></font></p>
+  <p class="MsoNormal" style="margin-right: 12pt; margin-top:3; margin-bottom:6">
+  <font face="Arial" size="2"><span lang="EN-GB">If you prefer the image to be 
+  displayed as “black on white” rather than “white on black”, the image display 
+  can be “inverted” by the command “<i>Image/Color Tables/Invert-LUT</i>”. The 
+  command “<i>Edit/Invert…</i>” inverts the pixel <i>values</i> not just the way 
+  the image is displayed.</span></font></p>
+  <h2 style="margin-top: 3; margin-bottom: 6"><span lang="EN-GB"><a name="IntvTime_1ROI">4.2<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+  </font>
+  </span>Getting intensity values from single ROI</a></span></h2>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">If the movie has been opened as a 
+  stack, the ROI selected can be analysed with the command: “<i><span style="color: navy">Plugins/Intensity 
+  vs Time Plot</span></i>”<i> </i>(hotkey: “1”). This generates a single column 
+  of numbers - one slice intensity per row.</span></font></p>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">The top 4 rows of the column are 
+  details of the ROI. This is useful to ensure the same ROI isn’t analysed twice 
+  and allow relocation of any interesting ROIs. The details are comprised of 
+  x-coordinate, y-coordinate, width and height of the ROI. If the ROI is a 
+  polyline/freehand ROI rather than a square/oval, the details are given as if 
+  the ROI was an oval/square. The (oval)ROI can be restored by entering the 
+  details prompted by the “<i>Plugins/Restore ROI</i>” command.</span></font></p>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">The results are displayed in a 
+  plot-window with the ROI details in the plot window title. The plot contains 
+  the buttons <i>List, Save, Copy. </i>The <i>Copy</i> button copies the data to 
+  the clipboard where it can be pasted into a waiting Excel sheet. The settings 
+  for the copy button can be found under “<i>Edit/Options/Plot profile options</i>”. 
+  Recommended settings are: <i>Do not save x-values </i>(prevents slice number 
+  data being pasted into Excel) and <i>Autoclose</i> (prevents you having to 
+  close analysed plot each time.</span></font></p>
+  <h2 style="margin-top: 3; margin-bottom: 6"><span lang="EN-GB"><a name="IntvTime_dynamic">4.3<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+  </font>
+  </span>Dynamic intensity vs Time analysis</a></span></h2>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6"><span lang="EN-GB">
+  <font size="2" face="Arial">The plugin “<span style="color: navy"><i>Plugins/Stacks 
+  –  T-functions/Intensity v Time Monitor </i></span>
+  </font>
+  </span><font face="Arial"><font size="2">(this is the  <span style="color: navy"><i>Dynamic ZProfile 
+  from </i></span></font><span lang="EN-GB"><font size="2">Kevin (Gali) Baler (gliblr 
+  at yahoo.com) and Wayne Rasband simply renamed)</font><span style="color: navy"><font size="2">
+  </font> </span></span>
+  
+  </font>
+  <!--[if supportFields]><![endif]--><font face="Arial" size="2"><i><span lang="EN-GB">” </span></i>
+  <span lang="EN-GB">will update the plot window each time the ROI selection is 
+  moved. This may help locate initiation sites of calcium signals for example.</span></font></p>
+  <h2 style="margin-top: 3; margin-bottom: 6"><a name="IntvTime_multiROI"><font face="Arial"><span lang="EN-GB">&nbsp;</span></font><span lang="EN-GB">4.4<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+  </font>
+  </span>Getting intensity values from multiple ROIs</span></a></h2>
+  <p class="MsoNormal" style="margin-bottom: 6; margin-top:3"><span lang="EN-GB">
+  <font face="Arial" size="2">Multiple 
+  ROIs can be analysed at once using Bob Dougherty’s “<i>Multi Measure</i>” 
+  plugin. There is a native “ROI manager” function which does a similar job 
+  except the results generated are not sorted in to columns. Check Bob’s website 
+  for updates:
+  <a href="/web/20120208073839/http://www.optinav.com/ImageJplugins/list.htm" style="color: blue; text-decoration: underline; text-underline: single">
+  http://www.optinav.com/ImageJplugins/list.htm</a></font><![if !supportNestedAnchors]><![endif]></span></p>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">The Multi Measure plugin that comes 
+  with the installation is v3.2.<img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens10.jpg" align="right"></span></font></p>
+  <p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">1.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2">
+  </font>
+  </span><font face="Arial" size="2">Open t-series.</font></span><font face="Arial" size="2"><span lang="EN-GB">Remove 
+	background (See <a href="/web/20120208073839/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm#intensity_BG">Background correction</a>)</span></font></p>
+  <p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">2.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2">
+  </font>
+  </span><font size="2" face="Arial">It’s worthwhile generating a reference stack to add the ROIs to. Use 
+  the “<i>Image/Stacks/Z-project</i>”<i> </i>function (hotkey: Shift+Z)</font></span><font size="2"><a href="/web/20120208073839/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm#_ftn1" name="_ftnref1" title style="color: blue; text-decoration: underline; text-underline: single"><span class="MsoFootnoteReference"><span lang="EN-GB"><font face="Arial">§</font></span></span></a></font><font face="Arial"><span lang="EN-GB"><font size="2">. 
+  Select the “Average” option.</font></span></font></p>
+  <p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">3.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2">
+  </font>
+  </span><font face="Arial" size="2">Rename this image “Ref <i>expt name</i>” or something memorable.</font></span></p>
+  <p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">4.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2">
+  </font>
+  </span><font size="2" face="Arial">Open “<i>ROI Manager</i>” plugin (“<span style="color: #000080"><i>Analyze&gt;Tools&gt;Roi 
+	Manager</i></span></font></span><font face="Arial"><!--[if supportFields]><span lang="EN-GB"><i><span style="color: navy"><font size="2"> 
+  </font> </span></i></span><![endif]--></font><!--[if supportFields]><![endif]-->
+  <font face="Arial" size="2">
+  <span lang="EN-GB">” <br>
+	or toolbar icon <img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens5.gif">). </span></font></p>
+  <p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">5.</font><font face="Arial" size="2"><span style="font-style: normal; font-variant: normal; font-weight: normal; "> 
+	Select ROIs and &quot;</span><span style="font-style: italic; font-variant: normal; font-weight: normal">Add</span><span style="font-style: normal; font-variant: normal; font-weight: normal; ">&quot; 
+	to ROI manager (hotkey: t). Clicking &quot;</span><span style="font-style: italic; font-variant: normal; font-weight: normal">Show 
+	All</span><span style="font-style: normal; font-variant: normal; font-weight: normal; ">&quot; 
+	helps avoid analysing the same cell twice.</span></font></span></p>
+  <p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">6.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2">
+  </font>
+  </span><font face="Arial" size="2">Once finished selecting ROIs to be analysed in the reference image, 
+  you can draw them to the reference image by clicking the &quot;<i>More&gt;&gt;</i>&quot; 
+	button and selecting <i>Draw</i>. Save the reference image to the </font>
+	<font face="Arial" size="2">experiment’s data folder and then select the 
+  stack to be analysed by clicking on it.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2"><img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens11.jpg" align="right"></font></span></span></p>
+  <p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">7.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2">
+  </font>
+  </span><font face="Arial" size="2">Click &quot;<i>More&gt;&gt;</i>&quot; button in the ROI 
+	manager and select “<i>Multi</i>” 
+  button to measure all the ROIs. Click “Yes” on “<i>Process stack?</i>” dialog. 
+	This will put values from each slice in to a single row (multiple columns 
+	per slice). Clicking on &quot;<i>Measure</i>&quot; will put all values from all slices 
+	and each ROI in a&nbsp; single column.</font></span></p>
+  <p class="MsoNormal" align="left" style="text-align: left; text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">8.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2">
+  </font>
+  </span><font face="Arial" size="2">Go to “Results” window. Select menu item “<i>Edit/Select All…</i>”. 
+  Then “<i>Edit/Copy All</i>”.</font></span></p>
+  <p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">9.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2">
+  </font>
+  </span></span><font face="Arial" size="2"><span lang="EN-GB">Go 
+  to Excel and paste data. With large data sets this can take some time so check 
+  you’re pasting new data in and not the last dataset copied from Multi Measure.</span></font></p>
+  <p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">
+  <img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens4.jpg" align="right" width="157" height="151">10.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2">
+  </font>
+  </span><font face="Arial" size="2">To copy ROI co-ordinates in to the Excel spreadsheet, ensure there is 
+  an empty row above the intensity data. Got to Multi Measure dialog and click 
+  “Copy list” button.</font></span></p>
+  <p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 3; margin-bottom: 6">
+  <span lang="EN-GB"><font face="Arial" size="2">14.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font face="Arial" size="2">
+  </font>
+  </span><font face="Arial" size="2">Go to Excel, select the empty cell above the first data column and then 
+  paste the ROI co-ordinates.</font></span></p>
+  <p class="MsoNormal" style="margin-right: 12; margin-top:3; margin-bottom:6">
+  <font face="Arial" size="2"><span lang="EN-GB">The ROIs can be stored and re-opened 
+  later using the Multi Measure dialog button “<i>Save</i>”. Save them in the 
+  experimental data folder. The ROIs can be opened later either individually 
+  (Multi Measure dialog button “<i>Open</i>”) or all at once (Multi Measure 
+  dialog button “<i>Open All</i>”) which opens all the ROIs in a folder.</span></font></p>
+  <p class="MsoNormal" style="margin-right: 12; margin-top:3; margin-bottom:6">
+  <font face="Arial" size="2"><span lang="EN-GB">Oval and rectangular ROIs can also be 
+  restored individually from x, y, l, h values using “<i><span style="color: navy">Plugins/ROI/SpecifyROI…</span></i></span><!--[if supportFields]><i><span lang="EN-GB" style="color: navy"> 
+  XE &quot; SpecifyROI…: </span></i><span lang="EN-GB">Jeffrey Kuhn (<a href="mailto:jkuhn@ccwf.cc.utexas.edu" style="color: blue; text-decoration: underline; text-underline: single">jkuhn@ccwf.cc.utexas.edu</a>), 
+  The University of Texas at Austin, Anthony Padua (<a href="mailto:padua001@mc.duke.edu" style="color: blue; text-decoration: underline; text-underline: single">padua001@mc.duke.edu</a>), 
+  Duke University Medical Center, Department of Radiology <i>
+  <span style="color: navy">&quot; </span></i></span><![endif]--></font><!--[if supportFields]>
+  <![endif]--><font face="Arial" size="2"><span lang="EN-GB">” (hotkey: Shift + G)<i>.</i></span></font></p>
+  <h2 style="margin-top: 3; margin-bottom: 6">4.5. Ratio An<a name="Ratiometric"></a>alysis<img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens1.jpg" align="right" width="407" height="334"></h2>
+  <p style="margin-top:3; margin-bottom:6"><font face="Arial"><font size="2">Analysis of dual-channel ratio images 
+  requires careful background subtraction prior to analysis. See section </font><span lang="EN-GB">
+  <a name="intensity_BG" href="/web/20120208073839/http://www.macbiophotonics.ca/imagej/image_intensity_proce.htm#intensity_BG"><b>
+  <font size="2">7.5</font></b><span style="font-style: normal; font-variant: normal; font-weight: 700; "><font size="2">
+  </font>
+</span><font size="2"><b>Background correction</b></font></a><font size="2"><b>.
+  </b>The <font color="#000080"><i>&quot;Plugins/Stacks - T-functions/Ratio_Profiler&quot;</i>
+  </font>plugin will perform ratiometric analysis of a single ROI on a 
+  dual-channel interleaved stack, i.e. the odd-slices are channel 1 images, the 
+  even slices channel 2. Perkin Elmer <i>Ultraview</i> and Leica SP dual channel 
+  experiments can be directly imported as an interleaved stack using the menu 
+  command &quot;<i>File/Import/Image Sequence</i>&quot;. If your two channels are opened 
+  as separate stacks, e.g. Zeiss, the two channels can be interleaved with the 
+  menu command &quot;<font color="#000080"><i>Plugins/Stacks - Shuffling/Stack 
+  Interleaver</i></font>&quot;. </font></span></font></p>
+  <p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+  <font size="2" face="Arial">The plugin will generate a green-plot of 
+  the ratio values (Ch1÷Ch2 by default; Ch2÷Ch1 if the plugin is run with the 
+  Alt-key down); a second plot of the intensities of the individual channels 
+  (Ch1 and Ch2); and a results table.</font></span></p>
+  <p style="margin-top: 3; margin-bottom: 6"><font size="2" face="Arial">The first row of the results table is the x, y, width and 
+  height of the ROI. </font></p>
+  <p style="margin-top: 3; margin-bottom: 6"><font face="Arial"><font size="2">From the second row downward, the first column is the time</font><span lang="en-gb"><font size="2"> 
+  or slice number; the second column the Ch1 mean intensity, Ch2 mean intensity 
+  and the ratio value. If the stack has its frame interval calibrated, the 
+  &quot;Time&quot; value will be in seconds otherwise it is &quot;Slices&quot;. The frame interval 
+  can be set for the stack via the menu command <i>&quot;Image/Properties&quot;</i> 
+  dialog.</font></span></font></p>
+  <p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+  <font size="2" face="Arial">This table can be copied to the clipboard 
+  for pasting to another program by using the &quot;<i>Edit/Copy All</i>&quot; menu 
+  command.</font></span></p>
+	<p style="margin-top: 3; margin-bottom: 6">&nbsp;</p>
+	<p style="margin-top: 3; margin-bottom: 6"><i><b><span lang="en-gb">
+	<font face="Arial" size="2">4.5.1
+	<a name="Ratio_Analysis_Using_ROI_manager_">Ratio Analysis Using ROI manager</a></font></span></b></i></p>
+	<p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+	<font face="Arial" size="2">1.
+	<a href="/web/20120208073839/http://www.macbiophotonics.ca/imagej/image_intensity_proce.htm#7.5.2_ROI_background_correction_">BG 
+	subtract </a>the image.<img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens6.jpg" align="right"></font></span></p>
+	<p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+	<font face="Arial" size="2">2. Open <i>ROI manager</i> (<i>Analyze/Tools/ROI 
+	manager...</i>) and click the &quot;Show All&quot; button.</font></span></p>
+	<p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+	<font face="Arial" size="2">3. Select the cells to be analysed and add to 
+	the ROI manager (&quot;Add&quot; button or keyboard 't' key).</font></span></p>
+	<p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+	<font face="Arial" size="2">4. Run the plugin &quot;<font color="#800000"><i>Plugins/Stacks 
+	- T-functions/Ratio ROI Manager</i></font>&quot;.</font></span></p>
+	<p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+	<font face="Arial" size="2">The results window contains the mean&nbsp; of 
+	ch1 and ch2 and their ratio. Each row is a timepoint (slice). The first row 
+	contains the ROI details.</font></span></p>
+	<p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+	<font face="Arial" size="2">To generate a reference image:</font></span></p>
+	<p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+	<font face="Arial" size="2">1. flatten the stack (<i>Image/Stacks/Zproject&quot; 
+	&quot;Projection type: Maximimum&quot;</i>), </font></span></p>
+	<p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+	<font face="Arial" size="2">2. Adjust the
+	<a href="/web/20120208073839/http://www.macbiophotonics.ca/imagej/image_intensity_proce.htm#intensity_BnC">brightness and contrast</a> 
+	if required.</font></span></p>
+	<p style="margin-top: 3; margin-bottom: 6"><span lang="en-gb">
+	<font face="Arial" size="2">3. Ensure the new image is selected and click 
+	the &quot;More button&quot; in the ROI manager then select &quot;Label&quot;. </font></span></p>
+	<p style="margin-top: 3; margin-bottom: 6">&nbsp;</p>
+  <p style="margin-top: 3; margin-bottom: 6">&nbsp;</p>
+  <h2 style="margin-top: 3; margin-bottom: 6"><span lang="EN-GB"><a name="IntvTime_timestamp">4.<span style="font-style: normal; font-variant: normal; ">6</span><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+  </font>
+  </span>Obtaining timestamp data</a></span></h2>
+  <h3 style="margin-top: 3; margin-bottom: 6"><a name="_Toc76807463"><span lang="EN-GB">4.6.1<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+  </font>
+  </span>Zeiss LSM</span></a></h3>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">Once imported via the Zeiss LSM panel, 
+  the timestamp data can be extracted with the panel’s ‘Apply t-stamp’ button. 
+  This will then ask you if you want the timestamp to be added to the image, or 
+  displayed in a text file for saving/pasting to excel etc. </span></font></p>
+  <h3 style="margin-top: 3; margin-bottom:6"><a name="_Toc76807464"><span lang="EN-GB">4.6.2<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+  </font>
+  </span>Noran</span></a><span lang="EN-GB"> </span></h3>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">In most instances the x-axis data, 
+  i.e. time of each frame, can be calculated from acquisition rates and frame 
+  number (e.g. frame 301 acquired with the acquisition rate set to 1 frame per 
+  0.5 seconds was acquired at 25 minutes). However, the acquisition rate is 
+  non-linear, in the above experiment frame 301 was actually acquired at 25 
+  minutes 12 seconds. Each frame has stored with it a “timestamp”, the precise 
+  time (in nanoseconds!) that it was acquired. This information can be extracted 
+  from an opened movie. </span></font></p>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">The movie must be opened as a stack 
+  and the timestamps can be extracted with the command: “<i><span style="color: navy">Import/Noran 
+  timestamp (msec)</span></i>”</span><!--[if supportFields]><i><span lang="EN-GB" style="color: navy"> 
+  XE &quot; Noran timestamp (msec): </span></i><span lang="EN-GB">Greg Joss &lt;gjoss@bio.mq.edu.au&gt;<i><span style="color: navy">&quot;
+  </span></i></span><![endif]--></font><!--[if supportFields]><![endif]-->
+  <font face="Arial" size="2">
+  <span lang="EN-GB">&nbsp;while the Noran Movie is open and selected.<i> </i>The 
+  timestamp data appears in the “<i>Results</i>” window. To copy data, click 
+  with the right mouse button on the windows, select “<i>Select All</i>”, then 
+  right-click again and select <i>Copy</i>. The timestamp data (accompanied by 
+  the movie filename) can then be pasted into Excel.</span></font></p>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">The Noran SGI plugins are not bundled 
+  with the ImageJ package. To receive them, please contact
+  <a href="mailto:tonyc@uhnresearch.ca" style="color: blue; text-decoration: underline; text-underline: single">
+  tonyc@uhnresearch.ca</a> or their author, Greg Joss &lt;gjoss@bio.mq.edu.au&gt;, 
+  Dept of Biology, Macquarie University, Sydney, Australia.</span></font></p>
+  <h3 style="margin-top: 3; margin-bottom: 6"><a name="_Toc76807465"><span lang="EN-GB">4.6.3<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+  </font>
+  </span>Biorad</span></a></h3>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">This can be accessed via the menu 
+  command “<i>Image/Show Info…</i>”. Scroll down and it should give the time at 
+  which each slice was acquired. This can be selected, copied in to Excel and 
+  the time number obtained by searching and replacing (Excel menu command “<i>Edit/Replace</i>”) 
+  the text, leaving only the time data. The “elapsed” time can then be 
+  calculated by subtracting row 1 from all subsequent rows.</span></font></p>
+  <h2 style="margin-top: 3; margin-bottom: 6"><span lang="EN-GB"><a name="IntvTime_pseudoline"><font size="2">4.7</font><span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+  </font>
+  </span><font size="2">Pseudo-linescan</font></a></span></h2>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6"><font face="Arial"><span lang="EN-GB">
+  <font size="2">“Linescanning” is a mode of 
+  acquisition common to many confocal microscopes where a single pixel wide line 
+  is acquired over a period of time instead of the norma1 2-D, x-y image. 
+  Usually this allows faster acquisition. The single pixel wide images over the 
+  time course are stacked from left to right to generate a 2-D image (i,e, <i>x</i>-<i>t</i>).</font></span></font><font size="2" face="Arial"><img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens5.jpg" align="right" width="203" height="178"></font></p>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">A “pseudo-linescan” is the generation 
+  of a linescan-type x-t plot from a 3-D (<i>x, y, t</i>)<i> </i>timecourse and 
+  can be useful in displaying 3-D data (x, y, t) in 2 dimensions. </span></font></p>
+  <p class="MsoNormal" style="margin-top: 3; margin-bottom: 6">
+  <font face="Arial" size="2"><span lang="EN-GB">A 
+  line of interest must be drawn followed by the command: “<i>Image/Stacks/Reslice”</i> 
+  or keyboard “/”. It will prompt for the line width. Enter the width of line 
+  you wish to be averaged. A pseudo-linescan “stack” will be generated, each 
+  slice representing the pseudo-linescan of a single-pixel wide line along the 
+  line of interest. To average the pseudo-linescan “stack”, select “<i>Image/Stack/Z-Project…</i>” 
+  and select the <i>Average</i> command. A polyline can be used although this 
+  will only allow a single pixel slice to be made. </span></font></p>
+  <p class="MsoNormal" align="left" style="text-align: left; margin-top:3; margin-bottom:6">
+  <font face="Arial" size="2"><span lang="EN-GB">
+  This example shows the elementary calcium events preceding a calcium wave. 
+  HeLa cell loaded with the calcium-sensitive fluorophore, Fluo-3 and imaged 
+  whilst responding to application of histamine. <b>A</b>. Frame taken from 
+  time-course at the peak of the calcium-release response. (<b>B</b>) The line 
+  of pixels along X-Y was taken and stacked side by side from right-to left to 
+  generate a &quot;pseudo-line scan&quot;. This allows visualisation of the progression of 
+  the wave from its initiation site. </span>
+  </font>
+</div>
+<div style="mso-element: footnote-list">
+  <![if !supportFootnotes]><hr align="left" size="1" width="33%"><![endif]>
+  <div style="mso-element: footnote" id="ftn1">
+    <p class="MsoFootnoteText" style="margin-top: 3; margin-bottom: 6">
+    <a href="/web/20120208073839/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm#_ftnref1" name="_ftn1" title style="color: blue; text-decoration: underline; text-underline: single">
+    <span class="MsoFootnoteReference">
+    <span lang="EN-GB" style="font-family: Arial"><font size="2">§</font></span></span></a><font face="Arial"><span lang="EN-GB"><font size="2"> 
+    ImageJ assumes stacks to be <i>z</i>-series rather than <i>t</i>-series so 
+    many functions related to the third-dimension of an image stack are called “<i>z-”</i> 
+    something – e.g. “z-axis profile” is intensity over time plot.</font></span></font></p>
+    <h2 style="margin-top: 3; margin-bottom: 6">&nbsp;</h2>
+	<h2 style="margin-top: 3; margin-bottom: 6">4.8<font size="2">&nbsp;FRAP An<a name="FRAP"></a>alysis</font></h2>
+	<p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens7.jpg" align="left"><font face="Arial" size="2">The 
+	FRAP profiler plugin will analyse the intensity of a beached ROI over time 
+	and normalise this against the intensity of the whole cell. It will then 
+	find the minimum intensity in the bleach ROI and fit the recovery&nbsp; from 
+	this point.</font><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<font face="Arial" size="2">To use:</font><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<font face="Arial" size="2">1. Open the <a href="/web/20120208073839/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm#IntvTime_multiROI">ROI 
+	manager</a>.</font><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<font face="Arial" size="2">2. Draw around the bleached ROI and Add to the 
+	ROI manager.</font><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<font face="Arial" size="2">3. Draw around the whole cell and add to ROI 
+	manager. The normalisation corrects for the bleaching dues to image 
+	acquisition and assumes the whole cell is in the field of view.</font><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<font face="Arial" size="2"><b>The plugin assumes the larger of the last two 
+	ROIs in the ROI manager is the whole cell ROI and the smaller the bleached 
+	ROI.</b></font><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<font face="Arial" size="2">4. Run the FRAP profiler plugin (<font color="#800000"><i>Plugins&gt;Stacks 
+	- T-functions&gt;FRAP_Profiler</i></font>)</font><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<font face="Arial" size="2">5. The plugin will return the intensity vs time 
+	plot; the normalised intensity vs time plot of the bleached area and the 
+	curve fit.</font><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<font face="Arial" size="2">The normalisation corrects for the bleaching 
+	dues to image acquisition and assumes the whole cell is in the field of 
+	view. </font>
+	<p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<b><font face="Arial" style="font-size: 8pt">normalised intensity at time t 
+	= I<sub>t </sub></font><font face="Arial"><span style="font-size: 8pt">= (Ib<sub>t</sub> 
+	÷ Ib<sub>max</sub>)&nbsp; ÷ (Ic<sub>t</sub> ÷ Ic<sub>max</sub>)</span></font></b><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<font face="Arial"><span style="font-weight: 700">
+	<span style="font-size: 8pt">Ib</span><sub><span style="font-size: 8pt">t</span></sub></span><span style="font-weight: 700; font-size: 8pt">= 
+	intensity of bleached ROI at time t.</span></font><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<font face="Arial"><span style="font-weight: 700">
+	<span style="font-size: 8pt">Ic</span><sub><span style="font-size: 8pt">t</span></sub></span><span style="font-weight: 700; font-size: 8pt">= 
+	intensity of whole cell at time t.</span></font><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens8.jpg"><p class="MsoNormal" align="left" style="margin-top: 3; margin-bottom: 6">
+	<img border="0" src="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/intens9.jpg"><p class="MsoFootnoteText">&nbsp;</div>
+</div>
+
+  </div>
+
+  <font face="Arial"><span lang="EN-GB">
+</div>
+</span></font></td>
+  </tr>
+  <tr>
+    <td width="10" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/images/grad10-1.jpg" height="285">
+
+
+    &nbsp;</td>
+    <td width="206" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208073839im_/http://www.macbiophotonics.ca/imagej/images/grad10.jpg" height="285">
+&nbsp;</td>
+    <td width="634" height="285" valign="top" style="border-style: none; border-width: medium" nowrap colspan="2">
+
+&nbsp;</td>
+  </tr>
+</table>
+
+
+</body>
+
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 7:38:39 Feb 8, 2012 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 16:32:09 Mar 6, 2013.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

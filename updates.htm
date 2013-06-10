@@ -1,0 +1,1165 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>MBF_ImageJ - Updates</title>
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body topmargin="0" leftmargin="0" link="#800000" vlink="#800000" alink="#800000">
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="/static/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="/static/js/graph-calc.js" ></script>
+<script type="text/javascript" src="/static/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1388534399999;
+var wbPrefix = "/web/";
+var wbCurrentUrl = "http:\/\/www.macbiophotonics.ca\/imagej\/updates.htm";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 18;
+var firstYear = 1996;
+var imgWidth = 450;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "8";
+var displayMonth = "Feb";
+var displayYear = "2012";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(/static/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://www.macbiophotonics.ca/imagej/updates.htm" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20120208074149" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20111208043517/http://www.macbiophotonics.ca/imagej/updates.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="8 Dec 2011"><strong>DEC</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 7:41:49 Feb 8, 2012">FEB</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20120319081528/http://www.macbiophotonics.ca/imagej/updates.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="19 Mar 2012"><strong>MAR</strong></a>
+		                
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20120115165323/http://www.macbiophotonics.ca/imagej/updates.htm" title="16:53:23 Jan 15, 2012" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 7:41:49 Feb 8, 2012">8</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20120217134025/http://www.macbiophotonics.ca/imagej/updates.htm" title="13:40:25 Feb 17, 2012" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0"/></a>
+		                
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20091125082658/http://www.macbiophotonics.ca/imagej/updates.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="25 Nov 2009"><strong>2009</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 7:41:49 Feb 8, 2012">2012</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2013
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="/web/20120208074149*/http://www.macbiophotonics.ca/imagej/updates.htm" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>56 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">15 Feb 07 - 19 Mar 12</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:450px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:450px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="450"
+				height="27"
+				border="0"
+				src="/web/jsp/graph.jsp?graphdata=450_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000000_2007:-1:0102100fd700_2008:-1:000001000002_2009:-1:111101110010_2010:-1:000000000000_2011:-1:000000000011_2012:1:121000000000_2013:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="/static/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="/static/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+
+
+<table border="1" cellspacing="0" width="693" id="AutoNumber1" height="427" style="border-collapse: collapse; border-width: 0" cellpadding="0" bordercolor="#FFFFFF">
+  <tr>
+    <td width="211" height="138" style="border-style: none; border-width: medium" valign="bottom" rowspan="2" bgcolor="#960033" background="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/images/logo4.jpg" colspan="2">
+    <p style="margin-top: 0; margin-bottom: 0">&nbsp;</td>
+    <td width="354" height="101" style="border-style: none; border-width: medium" nowrap valign="bottom">
+    <p align="center" style="margin-bottom: 12"><i><b>
+      <font color="#960033" face="Arial" size="5">Online Manual for the<br>
+      <font color="#960033">MBF-ImageJ collection</font></font></b></i></td>
+    <td width="280" height="101" style="border-style: none; border-width: medium" nowrap valign="bottom">
+    <p style="margin-bottom: 12" align="right">
+	<img border="0" src="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/update1.jpg"><b><a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/"><font face="Comic Sans MS" color="#243A68" size="2"><br>
+    Link to
+    ImageJ homepage</font></a></b></td>
+  </tr>
+  <tr>
+    <td width="634" height="35" style="border-style: none; border-width: medium" nowrap valign="bottom" colspan="2" background="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/images/grad9.jpg">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/images/grad10-1.jpg" height="285">
+
+
+    &nbsp;</td>
+    <td width="206" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/images/grad10.jpg" height="285">
+<script type='text/javascript'>
+
+//HV Menu v5.411- by Ger Versluis (http://www.burmees.nl/)
+//Submitted to Dynamic Drive (http://www.dynamicdrive.com)
+//Visit http://www.dynamicdrive.com for this script and more
+
+function Go(){return}
+
+</script>
+<script type='text/javascript' src='/web/20120208074149js_/http://www.macbiophotonics.ca/imagej/exmplmenu_var.js'></script>
+<script type='text/javascript' src='/web/20120208074149js_/http://www.macbiophotonics.ca/imagej/menu_com.js'></script>
+<noscript>Your browser does not support script</noscript>
+</td>
+    <td width="634" height="285" style="border-style: none; border-width: medium" nowrap colspan="2">
+
+<div class="Section1" style="width: 606; height: 604">
+
+<div class="Section1" style="width: 606; height: 679">
+
+<p style="margin-left: 24; margin-top:0; margin-bottom:12">&nbsp;</p>
+<p style="margin-left: 24; margin-top:0; margin-bottom:12"><i><b>
+<font face="Arial" color="#800000">Updates to 
+MBF ImageJ</font></b></i></p>
+
+<p style="margin-left: 24; margin-top:0">
+<img border="0" src="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/update7.jpg"></p>
+<p style="margin-left: 24; margin-top:0"><b><i><font face="Arial" size="2">
+Updates listed in no particular order.</font></i></b></p>
+<p style="margin-left: 24; margin-top:0"><i><b>
+  <font face="Arial" size="2">See:
+  <a href="/web/20120208074149/http://rsb.info.nih.gov/ij/notes.html">
+  http://rsb.info.nih.gov/ij/notes.html</a>, for information on core updates and 
+the
+<a target="_blank" href="/web/20120208074149/http://imagejdocu.tudor.lu/imagej-documenation-wiki/">
+ImageJ Documentation Wiki</a> for information and documentation about ImageJ.</font></b></i></p>
+<p style="margin-left: 24; margin-top:0"><i><b>
+  <font face="Arial" size="2">S</font></b></i><b><i><font face="Arial" size="2">ee the guidelines 
+for image manipulation at
+<a target="_blank" href="/web/20120208074149/http://www.jcb.org/misc/ifora.shtml#image_aquisition">
+Journal of Cell Biology</a>. </font></i></b></p>
+<p style="margin-left: 24; margin-top:0"><b><i><font face="Arial" size="2">v1.42l 
+Apr 2009<br>
+</font></i></b><font face="Arial" size="2">Updated to ImageJ 1.42l and 
+Bioformats Build4951.</font></p>
+<p style="margin-top:12px; margin-bottom:3px"><b><i><font face="Arial" size="2">
+v1.41n Oct 2008</font></i></b></p>
+<table border="1" width="95%" id="table2">
+	<tr>
+		<td width="69" align="center">
+		<font color="#960033" face="Arial" size="2">FLIM plugin menu</font></td>
+		<td>
+		<p style="margin-left: 12px"><font face="Arial" size="2">Several plugins 
+		to open Text-images exported from Becker and Hickl SPCImage. <i>Plugins&gt;FLIM</i></font></td>
+	</tr>
+	<tr>
+		<td width="69" align="center">
+		<p style="margin-left: 12px">
+		<font face="Arial" size="2" color="#960033">Texture analysis</font></td>
+		<td>
+		<font face="Arial" size="2">Several plugins to calculate Haralick's 
+		texture features (GLCM) from Julio E. Cabrera (jcabrera at mail.nih.gov).
+		<a href="/web/20120208074149/http://rsbweb.nih.gov/ij/plugins/texture.html">
+		http://rsbweb.nih.gov/ij/plugins/texture.html</a></font><p>
+		<font face="Arial" size="2">Fractal Count:
+		<a href="/web/20120208074149/http://www.pvv.org/~perchrh/imagej/fractal.html">
+		http://www.pvv.org/~perchrh/imagej/fractal.html</a></font></p>
+		</td>
+	</tr>
+	<tr>
+		<td width="69" align="center" height="71">
+		<p style="margin-left: 12px">
+		<font face="Arial" size="2" color="#960033">High content screening (HCS)</font></td>
+		<td height="71">
+		<font face="Arial" size="2">Several plugins to open and process Opera 
+		FLEX files and Nikon/Thermo Biostation image series.</font></td>
+	</tr>
+	</table>
+<p style="margin-left: 24; margin-top:0">&nbsp;</p>
+<p style="margin-top:12px; margin-bottom:3px"><b><i><font face="Arial" size="2">
+v1.39o Jan 2008</font></i></b></p>
+<table border="1" width="95%" id="table1">
+	<tr>
+		<td width="69" align="center">
+		&nbsp;</td>
+		<td>
+		<p style="margin-left: 12px"><font face="Arial" size="2">Added <i>&quot;<font color="#660033"><a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/colour_image_processi.htm#8.1.3._Merging_images_to_a_colour_composite">Plugins&gt;Colour&gt;Colour 
+		Composite Merge</a></font></i>&quot; to merge greyscale images to Colour 
+		composite. This format has the advantage over conventional RGB colour 
+		images in that there can be more than three channels and&nbsp; the 
+		original channels can be adjusted after merging and also split back off.</font></td>
+	</tr>
+	<tr>
+		<td width="69" align="center">
+		<p style="margin-left: 12px">
+		<img border="0" src="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/update8.jpg"></td>
+		<td>
+		<p style="margin-left: 12px"><font face="Arial" size="2">If the active 
+		window is greyscale, the RGB button now 
+		activates the plugin &quot;<i><a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/colour_image_processi.htm#8.1.3._Merging_images_to_a_colour_composite">Composite 
+		Merge</a></i>&quot; to generate a
+		<a target="_blank" href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/colour_image_processi.htm#colourcomposite">
+		colour composite </a>image. If the active image&nbsp; is 24 bit then it 
+		does an '<i>RGB split</i>' (+Alt keeps original RGB).</font></td>
+	</tr>
+	<tr>
+		<td width="69" align="center">
+		<p style="margin-left: 12px"><font face="Arial" size="2">
+		<img border="0" src="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/update2.gif"></font></td>
+		<td>
+		<p style="margin-left: 12px"><font face="Arial" size="2">Brightness and 
+		contrast button now opens &quot;Color Adjust&quot; dialog if the active window is 
+		24-bit.</font></td>
+	</tr>
+	<tr>
+		<td width="69" align="center">
+		<p style="margin-left: 12px"><font face="Arial" size="2">
+		<img border="0" src="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/update5.jpg"></font></td>
+		<td>
+		<p style="margin-top:0; margin-bottom:0; margin-left:12px">
+		<font face="Arial" size="2">Added toolbar button to open &quot;Set Threshold&quot; 
+		dialog.</font></p></td>
+	</tr>
+	<tr>
+		<td width="69" align="center">
+		&nbsp;</td>
+		<td>
+		<p style="margin-left: 12px; margin-top: 0; margin-bottom: 0">
+		<font face="Arial" size="2">Added</font> <font face="Arial" size="2">
+		option to have channels as greyscale in
+		<a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/colour_image_processi.htm#2montage">RGB to Montage</a> plugin.</font></td>
+	</tr>
+	<tr>
+		<td width="69" align="center">
+		&nbsp;</td>
+		<td>
+		<p style="margin-left: 12px; margin-top: 0; margin-bottom: 0">
+		<font face="Arial" size="2">Added support for Perkin Elmer FLEX file 
+		format through LOCI Bio-Formats and Lurawave libraries. Requires 
+		Registration for this particular function. </font></td>
+	</tr>
+	<tr>
+		<td width="69" align="center">
+		<p style="margin-left: 12px; margin-top: 0; margin-bottom: 0">&nbsp;</td>
+		<td>
+		<p style="margin-left: 12px; margin-top: 0; margin-bottom: 0">&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="69" align="center">
+		<p style="margin-left: 12px; margin-top: 0; margin-bottom: 0">&nbsp;</td>
+		<td>
+		<p style="margin-left: 12px; margin-top: 0; margin-bottom: 0">&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="69" align="center">
+		<p style="margin-left: 12px; margin-top: 0; margin-bottom: 0">&nbsp;</td>
+		<td>
+		<p style="margin-left: 12px; margin-top: 0; margin-bottom: 0">&nbsp;</td>
+	</tr>
+</table>
+<p style="margin-top:18px; margin-bottom:0"><font face="Arial" size="2">&nbsp;</font><b><i><font face="Arial" size="2">v1.39d Oct 28 2007</font></i></b></p>
+<ul>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">&quot;<font color="#800000"><i>Plugins&gt;ROI&gt;BG 
+	subtract from ROI</i></font>&quot; no longer clears existing results table.</font></p>
+	</li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added updated<i>
+	<a href="/web/20120208074149/http://www.loci.wisc.edu/ome/formats.html"><font color="#333399">LOCI Bio-Formats</font></a></i> 
+	(Oct 17 2007).</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added updated JRE to v6 update 3.<img border="0" src="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/update2.gif" align="right"></font></p>
+	</li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Replaced <i>Colour Contour</i> toolbar button 
+	with one to open <i>Brightness and Contrast </i>dialog.
+	</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Replaced <i>ROI push tool</i> with RGB 
+	merge/split tool. <img border="0" src="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/update3.gif" align="left"><br>
+	Tool opens the RGB merge dialog; shift+click performs an RGB split; 
+	shift+alt+click splits and keeps the original. <br>
+	If the active window is a 3-channle stack, then the tool performs a &quot;Convert 
+	stack to RGB&quot; function.<img border="0" src="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/update4.gif" align="right"></font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0"><font face="Arial" size="2">Added 
+	Z-projection tool for a one-click maximum intensity projection of the 
+	current stack. Removed shift-Z shortcut for Z-projection as this is now 
+	being used for channel assignment by the core ImageJ appication.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Replaced <i>Sigma filter</i> with &quot;<font color="#960033"><i>Sigma 
+	Filter Plus</i></font>&quot; filter from Michael Schmid. Updated Enhance Image to 
+	use the <i>Sigma Filter Plus </i>with default values.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added Piotr Wendykier's &quot;<i><a target="_blank" href="/web/20120208074149/http://piotr.wendykier.googlepages.com/deconvolution"><font color="#333399">Spectral 
+	Deconvolution</font></a></i>&quot; plugins to &quot;<font color="#960033"><i>Plugins&gt;Deconvolution</i></font>&quot;</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated &quot;<font color="#960033"><i>Mander's 
+	Coefficients</i></font>&quot; so that if the ch1 image is RGB the analysis is 
+	done on this iamge alone; the ch2 selection is ignored.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added &quot;<font color="#960033"><i>Plugins&gt;Colocalisation 
+	Analysis&gt;Mander's ROI Manager</i></font>&quot; that runs the &quot;Mander's 
+	Coefficients&quot; plugin on all the ROIs in the current ROI manager. </font></p></li>
+</ul>
+<p style="margin-top:0; margin-bottom:0" align="left">&nbsp;</p>
+<p style="margin-left: 24; margin-top:0; margin-bottom:0"><b><i>
+<font face="Arial" size="2">v1.39d Aug 28 2007</font></i></b></p>
+<ul>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added<b><i> </i></b>updated &quot;<font color="#800000"><i>Plugins&gt;Particle 
+	Analysis&gt;Object Counter3D</i></font>&quot; that returns calibrated volume 
+	measurements.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <i>
+	<a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm#FRAP">FRAP profiler</a></i>.</font></p>
+	</li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added updated<i>
+	<a href="/web/20120208074149/http://www.loci.wisc.edu/ome/formats.html">LOCI Bio-Formats</a></i> 
+	(Aug 1st 2007).</font></p></li>
+</ul>
+<p style="margin-left: 24; margin-top:0"><b><i><font face="Arial" size="2">
+v1.38r May 18 2007</font></i></b></p>
+<ul>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated <i>
+	<a href="/web/20120208074149/http://www.loci.wisc.edu/ome/formats.html">LOCI Bio-Formats</a></i> 
+	(May 3 2007) 
+	plugins.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated JRE to v6 update1</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <i><font color="#800000">
+	<a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/intensity_vs_time_ana.htm#Ratio_Analysis_Using_ROI_manager_">
+	Plugins/Stacks - T Functions/Ratio ROI manager</a> </font></i>which performs 
+	ratio analysis of a dual-channel, interleaved, time-course stack, e.g. Fura 
+	2, using the ROIs from the ROI manager. Returns mean ch1, mean Ch2 and ratio 
+	of mean ch1 ÷ mean ch2 as a multi column results window.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated the toolbar sets to include
+	<a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/macros/toolsets/Image,%20Stack%20and%20Timelapse%20Arrow%20Labelling.txt">
+	Gilles Carpentier's suite</a>; Jerome Mutterer's
+	<a target="_blank" href="/web/20120208074149/http://rsbweb.nih.gov/ij/macros/tools/RGBProfilesTool.txt">
+	RGB Profiles tool</a> and James Norman's
+	<a target="_blank" href="/web/20120208074149/http://alger.bmap.ucla.edu/PushTool/">ROI Push Tool</a>.
+	</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Based on Gilles' macro set, the StartUpMacros 
+	have been updated to allow rapid access to common LUTs from the toolbar 
+	('palette' button); one click access to this manual site ('question mark' 
+	button and one click access to the &quot;add scale bar&quot; function ('µm' button). 
+	The <i>Draw </i>functions have been moved to a Toolset menu accessible as an 
+	alternate macro toolset (Click the &quot;&gt;&gt;&quot; button on the toolbar).</font></p>
+	</li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <i><font color="#660033">Plugins/FLIM</font></i> 
+	menu and plugins to import Becker and Hickl exported text images and 
+	generate photon weighted lifetime images based on the Tau and photon number 
+	images.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <i>ImageJ/lut </i>folder and copied some 
+	LUT files there to list them in the <i>Image/Lookup Table </i>submenu<i>.</i></font></p>
+	</li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">The <i><font color="#660033">Enhance Image</font>
+	</i>plugin now stores the options in the ImageJ preferences file. </font></p>
+	</li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">The <i><a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/z.htm#Depth_Coding">
+	Z_Coded_Stack</a></i> plugin allows user defined LUT for the depth coding or 
+	the option to use the current LUT. This option is stored.</font></p>
+	</li>
+</ul>
+<p style="margin-top:0; margin-bottom:0" align="left">&nbsp;</p>
+<p style="margin-left: 24; margin-top:0"><b><i><font face="Arial" size="2">
+v1.38m March 19 2007</font></i></b></p>
+<ul>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated <i>
+	<a href="/web/20120208074149/http://www.loci.wisc.edu/ome/formats.html">LOCI Bio-Formats</a></i> 
+	(March 16 2007) 
+	plugins.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	Changed &quot;rename&quot; Hotkey from &quot;<i>R</i>&quot; to &quot;<i>F2</i>&quot;. &quot;Range Indicator&quot; 
+	LUT can be called using &quot;<i>F3</i>&quot; now.</p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	Updated
+	<a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/volume-viewer.html">
+	Volume Viewer </a>plugin.</p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	Improved ROI handling in &quot;Colocalisation threshold&quot; plugin.</p></li>
+</ul>
+<p style="margin-left: 24; margin-top:0">&nbsp;</p>
+<p style="margin-left: 24; margin-top:0"><b><i><font face="Arial" size="2">
+v1.38i&nbsp; Feb 8 2007</font></i></b></p>
+<ul>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated <i>
+	<a href="/web/20120208074149/http://www.loci.wisc.edu/ome/formats.html">LOCI Bio-Formats</a></i> 
+	(Feb 2007) 
+	plugins.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Changed the <font color="#800000"><i>Plugins/ROI/BG_Subtraction_from_ROI</i></font> 
+	macro to a plugin to speed it up and facilitate the use of the hotkey (=&quot;B&quot;. 
+	Note. &quot;b&quot; activates rolling ball subtraction in MBF_ImageJ)
+	<img border="0" src="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/update2.jpg" align="right"><img border="0" src="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/update3.jpg" align="right"></font></p>
+	</li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <i><font color="#960033">P</font><font color="#800000">lugins/Colour 
+	Functions/Whiten Background</font></i><font color="#800000">.</font> The 
+	user defines a background cutoff value and a grey level. All values below 
+	this cutoff are changed to this grey level. Saves on printer toner!</font></p>
+	</li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <font color="#800000"><i>Plugins/Stacks - 
+	building/Stack Building by Name </i></font>which creates a stack from all 
+	open images with a user defined string in the window title. I found this 
+	useful to stack multiple plot windows during analysis.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated <font color="#800000"><i>Plugins/Stacks 
+	- T-functions/Quick Ratio Profiler</i></font>.</font></p></li>
+</ul>
+<p style="margin-left: 24; margin-top:0; margin-bottom:0" align="left"><b>
+<font face="Arial" size="2"><i>v1.38f Jan 4 2007 - </i>MBF_ImageJ<i> 
+released</i></font></b></p>
+<ul>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <i>
+	<a href="/web/20120208074149/http://www.loci.wisc.edu/ome/formats.html">LOCI Bio-Formats</a></i> 
+	(Dec 2006) 
+	import plugin to <font color="#800000"><i>File/Import/LOCI Bio-Formats Importer</i></font> 
+	and <font color="#800000"><i>HandleExtraFileTypes </i></font>plugin so the 
+	functionality of the LOCI Bio-Formats plugin can be accessed via the menu 
+	command <font color="#800000"><i>File/Open</i></font>.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <i>
+	<a target="_blank" href="/web/20120208074149/http://www.loci.wisc.edu/ome/formats.html">LOCI 
+	Bio-Formats </a></i>Export plugin to <font color="#800000"><i>File/Save 
+	As/LOCI Bio-Formats Exporter</i></font>.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added new Plugin sub-menu: <font color="#800000">
+	<i>Plugins/Stacks - Multi-D</i></font> to include the LOCI group's <i>
+	<a target="_blank" href="/web/20120208074149/http://www.loci.wisc.edu/ome/browser.html">LOCI 4D 
+	Data browser</a></i>, Joachim Walter's&nbsp; <i>
+	<a target="_blank" href="/web/20120208074149/http://imagejdocu.tudor.lu/imagej-documentation-wiki/plugins/image5d">
+	Image5D</a> </i>and Michael Abramoff's&nbsp; <font color="#800000"><i>
+	<a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/hypervolume-shuffler.html">
+	HyperVolume Browser </a></i></font>(moved from <i>Plugins/Stacks - Shuffling</i>).
+	</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <i><font color="#800000">Plugins/Stacks - 
+	T-functions/Ratio Stack</font></i> macro to perform a crude ratio of an 
+	interleaved stack allowing the user to subtract either a max-intensity 
+	projection mask of the stack or the auto-threshold mask of the entire stack. 
+	Allows users to override the default Ch1÷Ch2 (i.e. odd slices divided by 
+	even slices) and specify Rmin and Rmax. <b><i>For visualisation only. 
+	Ratiometric measurements for an ROI should be calculated (meanCh1 ÷ 
+	meanCh2), not mean(Ch1÷Ch2).</i></b></font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated <font color="#800000"><i>
+	<a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/colour_image_processi.htm#color_merge">RGB Gray Merge</a></i></font> 
+	to allow user defined subtraction of fluorescence from bright-field 'grey' image 
+	and be compatible with 16-bit images. The 8 and 16-bit images are scaled 
+	using the min and max displayed value when merged. Let me know if you have 
+	any trouble with it.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated to JRE 1.6.0.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Replaced <font color="#800000"><i>RGB_Measure</i>
+	</font>with Dimiter</font>
+	<font face="Arial" size="2">Prodanov's</font> <font face="Arial" size="2">
+	<a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/rgb-measure-plus.html">
+	<i>
+	<font color="#800000">RGB_Measure_Plus</font></i> </a>in
+	<font color="#800000"><i>Plugins/Colour functions</i></font> menu.</font></p>
+	</li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added Guy Levy's <font color="#800000"><i>
+	<a target="_blank" href="/web/20120208074149/http://weeman.inf.ethz.ch/particletracker/">
+	Particle Tracker</a></i></font> to <font color="#800000"><i>Plugin/Particle 
+	Analysis</i> </font>menu.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added Erik Meijering's <i>
+	<a target="_blank" href="/web/20120208074149/http://www.imagescience.org/meijering/software/mtrackj/">
+	MTrackJ</a></i> as the menu item <font color="#800000"><i>Plugins/Particle 
+	Analysis/Manual Tracking - MTrackJ</i></font>.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated <i><font color="#800000">Plugins/Stacks- 
+	shuffling/Deinterleave</font> to carry over spatial calibration from source 
+	stack.</i></font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <font color="#800000"><i>
+	Plugins/Movies/Emboss </i></font>plugin.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Improved <font color="#800000"><i>Plugins/Movie/TimeStamper
+	</i></font>to allow optional anti-aliased text and digital number format* (HH:MM:SS)
+	<i>(*this code was taken from a related plugin some time ago and I can&#39;t 
+	remember the source. Please let me know if you recognise it...).</i></font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Updated <font color="#800000"><i>Plugins/Stacks 
+	- building/Concatenate</i></font> with
+	<a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/concatenate.html">
+	Johnathon Jackson's</a> improved version.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added <i><font color="#800000">Plugins/Update</font></i> menu to contain ImageJ 
+	Update item which is Patrick Pirotte's <i>
+	<a target="_blank" href="/web/20120208074149/http://imagejdocu.tudor.lu/Members/ppirrotte/ijupdate">
+	IJUpdate </a></i>plugin and also his <i>
+	<a target="_blank" href="/web/20120208074149/http://imagejdocu.tudor.lu/Members/ppirrotte/ijproxy">
+	IJ_Proxy</a></i> plugin.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added toolsets macros.</font></p></li>
+	<li>
+	<p style="margin-top:0; margin-bottom:0" align="left">
+	<font face="Arial" size="2">Added Curtis Ruedens' &quot;Improvision TIFF 
+	importer&quot; which imports calibrated TIFF images exported from <i>Volocity</i>.
+	<i>
+	<font color="#800000">File/Import/*.TIF Improvision TIFF file</font><font color="#960033">.</font></i></font></p></li>
+</ul>
+<p style="margin-top:0; margin-bottom:0" align="left">&nbsp;</p>
+
+<p style="margin-left: 24; margin-top:1; margin-bottom:0" align="left"><b>
+<font face="Arial" size="2">v1.37b April 2006 - Last WCIF_ImageJ</font></b></p>
+
+<ul>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial" size="2">Added Gabriel Landini's toolbar 'LUT-cycler' button 
+to the right-hand end of the toolbar.<br>
+Clicking the button cycles between &quot;Red&quot;, Green&quot;, &quot;Blue&quot; and &quot;Grey&quot; lookup 
+tables.<br>
+Pressing the &quot;alt-key&quot; when you click the button cycles &quot;Fire&quot;, &quot;Ice&quot; &quot;Spectrum&quot; 
+and &quot;Grey&quot;.<br>
+Pressing the space-bar cycles &quot;Red Hot&quot;, &quot;Green Hot&quot;, &quot;Cyan Hot&quot; and &quot;Grey&quot;.<br>
+Pressing the &quot;shift-key&quot; reverses the cycling. <br>
+If no image is open or the current image is 24-bit image, a new 'ramp' image is 
+generated. </font></p>
+
+  </li>
+</ul>
+
+<p style="margin-left: 24; margin-top:1; margin-bottom:0" align="left"><b>
+<font face="Arial" size="2">v1.37a March 21 2006 </font></b></p>
+
+<ul>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial" size="2">Added Eva Kocsis
+<a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/straighten.html">
+Straighten</a> plugin to &quot;<font color="#000080"><i>Plugins/ROI/Straighten to 
+Line</i></font>&quot;.</font></p>
+
+  </li>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial" size="2">Added Thomas Kuo &amp; Jiyun Byun's Nucleus counter to &quot;<font color="#000080"><i>Plugins/Particle 
+Analysis/ITCN</i></font>&quot; plugin. The
+<a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/itcn.html">plugin</a> 
+is based on work at the <a href="/web/20120208074149/http://www.bioimage.ucsb.edu/">Center for 
+Bio-image Informatics</a> at UC Santa Barbara.</font></p>
+
+  </li>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial" size="2">Added &quot;<font color="#2C2C98"><i>File/Save As/PNM 
+Export...</i></font>&quot; from </font>Johannes Schindelin (<a href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/pnm-writer.html">link</a>).</p>
+
+  </li>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial" size="2">Updated &quot;<i><font color="#333399">Leica TIFF reader</font></i>&quot;, &quot;HandleExtraFileTypes&quot;.</font></p>
+
+  </li>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial" size="2">Fixed thershold bug in &quot;<i><font color="#333399">Mander's 
+Coefficient</font></i>&quot; plugin.</font></p>
+
+  </li>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial" size="2">Added <font color="#333399"><i>'<a target="_blank" href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/colour_analysis.htm#coloc_ica">Plugins/Colocalisation 
+Analysis/Intensity Correlation Analysis</a></i></font>&quot; plugin for image colocalisation. </font></p>
+
+  </li>
+</ul>
+
+<p style="margin-left: 24; margin-top:1; margin-bottom:0" align="left"><b>
+<font face="Arial" size="2">v1.35q Feb 24 2006</font></b></p>
+
+<ul>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial" size="2">Updated Windows installer to include George Silva's 
+upgraded
+<a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/download/win32/ImageJLauncher.txt">
+ImageJ.exe </a>add to ImageJ to the 
+<font color="#000080"><i>registry</i></font>. This will allow users to assign ImageJ as the default viewer for file 
+types. See
+<a target="_blank" href="/web/20120208074149/http://www.uhnresearch.ca/facilities/MBF/fdownload.html">
+here</a> for details.</font></p>
+
+  </li>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font size="2" face="Arial">Added </font><font size="2"><i>
+<font color="#000080" face="Arial">&quot;File/Import/*.TXT Leica SP2 series&quot;</font><font color="#243A68" face="Arial">
+</font></i></font><font size="2" face="Arial">import<font color="#243A68">
+</font>plugin. See
+<a target="_blank" href="/web/20120208074149/http://www.uhnresearch.ca/facilities/MBF/software/Plugins/LeicaTIFF.html">here</a> for details.</font></p>
+
+  </li>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial" size="2">Renames <i>Plugin/Toolbars </i>to <i>Plugin/Tools</i></font></p>
+
+  </li>
+  <li>
+
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial" size="2">Added two 'Lab calculator' macros: <i>
+<a href="/web/20120208074149/http://www.uhnresearch.ca/facilities/MBF/software/Plugins/Concentrations.html">&quot;Plugins/Tools/Concentrations&quot;</a></i> and <i>
+<a href="/web/20120208074149/http://www.uhnresearch.ca/facilities/MBF/software/Plugins/Dilutions.html">&quot;Plugins/Tools/Dilutions&quot;</a></i>. The former calculates concentrations; the 
+latter dilutions. See links for details.</font></p>
+
+  </li>
+</ul>
+
+<p style="margin-left: 24; margin-top:0; margin-bottom:0"><b>
+<font face="Arial" size="2">v1.35p 3 Feb 2006 </font></b></p>
+
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 6; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Updated online manual to be more friendly to non-Microsoft browsers.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Updated Windows<i>
+  <a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/download/win32/ImageJLauncher.txt">
+  ImageJ.exe</a></i> launcher to new version from George Silva. </font> </li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Updated JRE to 5.0 Update6 (aka.1.5.0_06).</font></li>
+</ul>
+
+<p style="margin-left: 24; margin-top:12; margin-bottom:0"><b>
+<font face="Arial" size="2">v1.35j, 9 Dec 2005</font></b></p>
+
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 6; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added Jerome Mutterer and Ulf Dittmer's
+  <i>PDF writer</i> to <i>&quot;File/Save As/PDF export&quot;</i>.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added Kevin (Gali) Baler's
+  <i>Multi-Thresholder </i>to &quot;<i>Plugins/Segmentation&quot;</i>. This allows 
+  different threshold algorithms to be more easily evaluated.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added Vladimir Pilny and Jiri Janacek's
+  <i>Anisotropic Diffusion 2D</i> edge-preserving filter to &quot;<i>Process/Filter/Anisotropic 
+  Filter</i>&quot;.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added MCID *.IM reader courtesy of Wayne Rasband.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Update to JRE 5.0 Update 6.</font></li>
+</ul>
+
+<p style="margin-left: 24; margin-top:12; margin-bottom:0"><b>
+<font face="Arial" size="2">v1.35g, 4 Nov 2005</font></b></p>
+
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 6; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added updated <i>&quot;Colour Deconvolution&quot; </i>plugin.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added </font>Jon and Jeff Hardin<font face="Arial" size="2">'s 
+  updated QuickTime plugins and QuickTime Java.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added Dimiter Prodanov's <i>
+  <a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/gran-filter.html">
+  Granulometric Filtering</a> </i>plugin to &quot;<font color="#000080"><i>Plugins/Particle 
+  Analysis</i></font>&quot;.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Updated Java version to 5.0 update 5 (a.k.a. 
+  1.5.0_05).</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added updated &quot;<i>Extended Depth of field&quot; </i>
+  plugin. This update can be run in Easy or Expert mode. </font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added Daniel Sage's <i>
+  <a href="/web/20120208074149/http://bigwww.epfl.ch/sage/soft/spottracker/">SpotTracker </a></i>
+  plugin to &quot;<i><font color="#000080">Plugins/Particle Analysis</font></i>&quot;.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added example of using the core <i>
+  <a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/image_intensity_proce.htm#7.1.3 FFT background correction">FFT 
+  Bandpass Filter </a></i>to correct for uneven background and horizontal 
+  banding.</font></li>
+</ul>
+
+<p style="margin-left: 24; margin-top:12; margin-bottom:0"><b>
+<font face="Arial" size="2">v1.35d, 29 Sept 2005&nbsp; </font></b></p>
+
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 6; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added the <i>
+  <a target="_blank" href="/web/20120208074149/http://bigwww.epfl.ch/thevenaz/stackreg/">StackReg</a> </i>
+  and <i>
+  <a target="_blank" href="/web/20120208074149/http://bigwww.epfl.ch/thevenaz/turboreg/">TurboReg</a> </i>
+  plugins&nbsp; from 
+  Philippe Thévenaz (Biomedical Imaging Group), as <i>
+  <a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/stack.htm#9.4 Align slices in stack">Align Slices</a></i> to the &quot;<font color="#000080"><i>Plugins/Stacks 
+  - Shuffling</i></font>&quot; menu.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Upgraded <font color="#000080"><i>LSM reader </i>
+  </font>plugin.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font size="2" face="Arial">Added Pirrotte Mutterer and Jeff Brandenburg's&nbsp; <i>
+  <a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/hypervolume-browser.html">
+  HyperVolume Browser</a> </i>to <font color="#000080"><i>&quot;Plugins/Stacks - 
+  Shuffling</i></font>&quot;.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font size="2" face="Arial">Added &quot;<font color="#000080"><i>Plugins/LUT/Add Ramp</i></font>&quot; plugin which 
+  will add a greyscale ramp to an 8-bit image in a user defined rectangular 
+  selection. This is similar to the native <i>&quot;Analyze/Tools/Calibration Bar&quot;
+  </i>but without the text labels. See entry in the manual
+  <a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/colour_image_processi.htm#color_pseudo">here</a>.</font></li>
+</ul>
+
+<p style="margin-left: 24; margin-top:12; margin-bottom:0"><b>
+<font face="Arial" size="2">v1.34q, 5 Jul 2005</font></b></p>
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 6; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added the <i>
+  <a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/track/delta.html">
+  DeltaVision *.DV</a></i> and <i>
+  <a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/track/builder.html">
+  MetaMorph *.ND</a></i> import plugins to the &quot;<i><font color="#000080">File/Import</font>&quot;
+  </i>menu. Plugins from Fabrice Cordelieres.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added <i>
+  <a target="_blank" href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/track/objects.html">
+  3D Objects Counter</a></i> to &quot;<font color="#000080"><i>Plugins/Particle 
+  Analysis</i></font>&quot;, also from Fabrice Cordelieres.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial"><font size="2">Added </font> <i>
+  <a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/colour_image_processi.htm#2montage" target="_blank"><font size="2">RGB to Montage</font></a><font size="2">
+  </font> </i>
+  <font size="2">plugin to the menu &quot;<i><font color="#000080">Plugins/Colour functions</font></i>&quot; 
+  which will convert a single slice RGB image to a montage of its seprated red, 
+  green and blue channels. This was inspired by Gilles Carpentier
+  <a target="_blank" href="/web/20120208074149/http://image.bio.methods.free.fr/Fluotooldoc.html">Three Channel Fluorescence Image Exploration Tools</a> macro which has greater 
+  functionality.</font></font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added </font><i>
+  <a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/z.htm#Depth Coding" target="_blank"><font size="2" face="Arial">Z Code Stack</font></a></i><font face="Arial" size="2"> 
+  plugin to the menu &quot;<font color="#000080"><i>Plugins/Stacks - Z-functions</i></font>&quot;. 
+  This plugin&nbsp; colour codes the slices in a 8-bit z-series based on their 
+  z-position. This can enhance subsequent processing on the stack 
+  (z-projections; 3D rotations). The idea is based on M. Abràmoff's depth coded volume rendering.</font></li>
+</ul>
+
+<p style="margin-left: 24; margin-top:12; margin-bottom:0"><b>
+<font face="Arial" size="2">v1.34p, 13 Jun 2005</font></b></p>
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 6; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added the updated <i>
+  <a href="/web/20120208074149/http://www.dentistry.bham.ac.uk/landinig/software/software.html">
+  Align RGB planes </a></i>plugin from Gabriel Landini.</font></li>
+</ul>
+<p style="margin-left: 24; margin-top: 12; margin-bottom: 0"><b>
+<font face="Arial" size="2">v1.34o, 9th Jun 2005</font></b></p>
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 6; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added a small routine to get the user to set memory allocation 
+  after installation (Windows only).  </font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added <i>&quot;<font color="#000080">Plugins/Movies/Zoomify</font></i><font color="#000080">&quot;
+  </font>plugin to create a 'zoom' sequence from an ROI.
+  <a target="_blank" href="/web/20120208074149/http://www.uhnresearch.ca/facilities/MBF/images/Zoomed.gif">
+  e.g.</a> See here for details.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added Gabriel Landini's <i>
+  <a target="_blank" href="/web/20120208074149/http://www.dentistry.bham.ac.uk/landinig/software/software.html">
+  Colour Correct</a> </i>plugin to the <font color="#000080"><i>&quot;Plugins/Colour 
+  functions/&quot;</i></font> menu as well as a modified version of this plugin 
+  called<i> '<font color="#000080">Colour Balance</font>' </i>which performs a 
+  white correction from a single ROI, sets the black level from the minimum 
+  intensity in each colour channel from the whole image.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added the updated <i>
+  <a href="/web/20120208074149/http://www.dentistry.bham.ac.uk/landinig/software/software.html">
+  Align RGB planes </a></i>plugin from Gabriel Landini.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added two tool-bars modified from the Align RGB 
+  planes plugin. The &quot;<font color="#000080"><i>Common toolbar</i></font>&quot; starts 
+  when ImageJ starts and the LUT toolbar can be accessed via the menu command &quot;<font color="#000080"><i>Plugins/Toolbars/LUT 
+  toolbar</i></font>&quot;. </font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">The IJ_Prefs.txt file is write-protected by 
+  default so new preferences are not written to it. It can be write enabled by 
+  right clicking on the IJ_Prefs.txt file and unchecking the &quot;read-only&quot; 
+  attribute.&nbsp; </font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added &quot;<i><a href="/web/20120208074149/http://image.bio.methods.free.fr/Arrowsdoc.html">Draw 
+  Arrow</a></i>&quot; toolbar tool from Gilles Carpentier.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added details of the MacOSX
+  <a target="_blank" href="/web/20120208074149/http://image.bio.methods.free.fr/ijupdater.html">ImageJ update script 
+  </a>for Gilles Carpentier. See <a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/installing_imagej.htm#Install_Upgrade">Upgrade
+  </a>section.</font></li>
+</ul>
+<p style="margin-left: 24; margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-left: 24; margin-top: 12; margin-bottom: 0"><b>
+<font face="Arial" size="2">v1.34m, 10th May 2005</font></b></p>
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 6; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Updated Java version to 5.0 update 3 (a.k.a. 
+  1.5.0_03).</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Updated the Nucleus Counter plugin to have more 
+  options. See <a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/particle_analysis.htm#5.1.4 Nucleus Counter">here</a>.</font></li>
+</ul>
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 0; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Bundled Bob Dougherty's 3D Deconvolution plugins. 
+  See <a href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/12_deconvolution.htm">here</a>.</font></li>
+</ul>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-left: 24; margin-top: 12; margin-bottom: 0"><b>
+<font face="Arial" size="2">v1.34l, 22nd April 2005</font></b></p>
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 6; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Reorganised the colocalisation related plugins to
+  <i><font color="#333399">&quot;Plugins/Colocalisation/&quot;</font></i>. </font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">&quot;<i><font color="#000080">Image Correlator Plus</font>&quot;
+  </i>plugin renamed &quot;<font color="#000080"><i>Manders Coefficients</i></font>&quot; 
+  and upgraded.</font></li>
+</ul>
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 0; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Added two plugins for Coste's Colocalisation 
+  analysis<br>
+  <i><font color="#333399">&quot;Plugins/Colocalisation/Colocalisation Test&quot; <br>
+  </font></i><font color="#333399">&quot;</font><i><font color="#333399">Plugins/Colocalisation/Colocalisation 
+  Threshold</font></i><font color="#333399">&quot;<br>
+  </font>See <a target="_blank" href="/web/20120208074149/http://www.macbiophotonics.ca/imagej/PDF/colocalisation_collection.pdf"> <i>
+  Colocalisation</i> <i>Collection</i></a><i> </i>manual for details.</font></li>
+</ul>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-left: 24; margin-top: 12; margin-bottom: 0"><b>
+<font face="Arial" size="2">v1.34i, 3rd&nbsp; March 2005</font></b></p>
+<ul style="text-align: left; margin-left: 10; margin-right: 0; margin-top: 6; margin-bottom: 0">
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">
+  <a href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/zvi-reader.html">Zeiss ZVI reader</a> 
+  plugin from Curtis Rueden.</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Segmentation and thresholding plugins reorganised and can now be 
+  found in <font color="#333399"><i>Plugins/Segmentation.</i></font></font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Kai Uwe Barthel's
+  <a href="/web/20120208074149/http://rsb.info.nih.gov/ij/plugins/volume-viewer.html">Volume Viewer
+  </a>included (<font color="#333399"><i>Plugins/Stacks -<sub> </sub>
+  Z-Functions/</i></font>).</font></li>
+  <li>
+  <p style="margin-left: 24; margin-top: 0; margin-bottom: 0">
+  <font face="Arial" size="2">Macro for rotating a stack around the X-axis, then 
+  around the y-axis (<font color="#333399"><i>Plugins/Z-functions/X and Y 
+  rotation</i></font>).</font></li>
+</ul>
+<p style="margin-left: 24; margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-left: 24; margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-left: 24; margin-top: 0; margin-bottom: 0">&nbsp;</p>
+
+  <p>&nbsp;</div>
+
+  <font face="Arial"><span lang="EN-GB">
+</div>
+</span></font></td>
+  </tr>
+  <tr>
+    <td width="10" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/images/grad10-1.jpg" height="285">
+
+
+    &nbsp;</td>
+    <td width="206" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208074149im_/http://www.macbiophotonics.ca/imagej/images/grad10.jpg" height="285">
+&nbsp;</td>
+    <td width="634" height="285" style="border-style: none; border-width: medium" nowrap colspan="2">
+
+&nbsp;</td>
+  </tr>
+</table>
+
+
+</body>
+
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 7:41:49 Feb 8, 2012 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 16:32:11 Mar 6, 2013.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

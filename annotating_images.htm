@@ -1,0 +1,770 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>MBF_ImageJ - Annotating Images</title>
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+h1
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:21.6pt;
+	text-align:justify;
+	text-indent:-21.6pt;
+	page-break-before:always;
+	page-break-after:avoid;
+	tab-stops:list 21.6pt;
+	font-size:12.0pt;
+	font-family:Arial;
+	font-variant:small-caps;
+	font-style:italic;
+	}
+h2
+	{margin-top:18.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:28.8pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-indent:-28.8pt;
+	tab-stops:list 28.8pt;
+	font-size:10.0pt;
+	font-family:Arial;
+	}
+h3
+	{margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:40.5pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-indent:-36.0pt;
+	page-break-after:avoid;
+	tab-stops:list 40.5pt;
+	font-size:10.0pt;
+	font-family:Arial;
+	font-style:italic;
+	}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+span.MsoFootnoteReference
+	{vertical-align:super}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+span.StyleHeading1After6ptChar
+	{font-family:Arial;
+	font-variant:small-caps;
+	font-weight:bold;
+	font-style:italic}
+span.Heading4Char
+	{font-style:italic;
+	}
+h4
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:43.2pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-indent:-43.2pt;
+	page-break-after:avoid;
+	tab-stops:list 43.2pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	font-weight:normal;
+	font-style:italic;
+	}
+-->
+</style>
+</head>
+
+<body topmargin="0" leftmargin="0">
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="/static/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="/static/js/graph-calc.js" ></script>
+<script type="text/javascript" src="/static/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1388534399999;
+var wbPrefix = "/web/";
+var wbCurrentUrl = "http:\/\/www.macbiophotonics.ca\/imagej\/annotating_images.htm";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 18;
+var firstYear = 1996;
+var imgWidth = 450;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "8";
+var displayMonth = "Feb";
+var displayYear = "2012";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(/static/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://www.macbiophotonics.ca/imagej/annotating_images.htm" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20120208074754" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20100616050518/http://www.macbiophotonics.ca/imagej/annotating_images.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="16 Jun 2010"><strong>JUN</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 7:47:54 Feb 8, 2012">FEB</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20120823174523/http://www.macbiophotonics.ca/imagej/annotating_images.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="23 Aug 2012"><strong>AUG</strong></a>
+		                
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20120115144405/http://www.macbiophotonics.ca/imagej/annotating_images.htm" title="14:44:05 Jan 15, 2012" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 7:47:54 Feb 8, 2012">8</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20120823174523/http://www.macbiophotonics.ca/imagej/annotating_images.htm" title="17:45:23 Aug 23, 2012" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0"/></a>
+		                
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20100616050518/http://www.macbiophotonics.ca/imagej/annotating_images.htm" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="16 Jun 2010"><strong>2010</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 7:47:54 Feb 8, 2012">2012</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2013
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="/web/20120208074754*/http://www.macbiophotonics.ca/imagej/annotating_images.htm" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>52 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">3 Jul 07 - 23 Aug 12</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:450px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:450px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="450"
+				height="27"
+				border="0"
+				src="/web/jsp/graph.jsp?graphdata=450_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000000_2007:-1:0000001fe700_2008:-1:000001000001_2009:-1:000001000010_2010:-1:001211000000_2011:-1:000000000000_2012:1:110000010000_2013:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="/static/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="/static/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+
+
+<table border="1" cellspacing="0" width="693" id="AutoNumber1" height="427" style="border-collapse: collapse; border-width: 0" cellpadding="0">
+  <tr>
+    <td width="211" height="138" style="border-style: none; border-width: medium" valign="bottom" rowspan="2" bgcolor="#960033" background="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/images/logo4.jpg" colspan="2">
+    <p style="margin-top: 0; margin-bottom: 0">&nbsp;</td>
+    <td width="354" height="101" style="border-style: none; border-width: medium" nowrap valign="bottom">
+    <p align="center" style="margin-bottom: 12"><i><b>
+      <font color="#960033" face="Arial" size="5">Online Manual for the<br>
+      <font color="#960033">MBF-ImageJ collection</font></font></b></i></td>
+    <td width="280" height="101" style="border-style: none; border-width: medium" nowrap valign="bottom">
+    <p style="margin-bottom: 12" align="right">
+	<img border="0" src="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/imagej4microscopy.jpg" width="258" height="54"><b><font face="Comic Sans MS" color="#243A68" size="2"><a target="_blank" href="/web/20120208074754/http://rsb.info.nih.gov/ij/"><br>
+    Link to
+    ImageJ homepage</a></font></b></td>
+  </tr>
+  <tr>
+    <td width="634" height="35" style="border-style: none; border-width: medium" nowrap valign="bottom" colspan="2" background="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/images/grad9.jpg">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/images/grad10-1.jpg" height="285">
+
+
+    &nbsp;</td>
+    <td width="206" valign="top" nowrap style="border-style: none; border-width: medium" bgcolor="#960033" background="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/images/grad10.jpg" height="285">
+<script type='text/javascript'>
+
+//HV Menu v5.411- by Ger Versluis (http://www.burmees.nl/)
+//Submitted to Dynamic Drive (http://www.dynamicdrive.com)
+//Visit http://www.dynamicdrive.com for this script and more
+
+function Go(){return}
+
+</script>
+<script type='text/javascript' src='/web/20120208074754js_/http://www.macbiophotonics.ca/imagej/exmplmenu_var.js'></script>
+<script type='text/javascript' src='/web/20120208074754js_/http://www.macbiophotonics.ca/imagej/menu_com.js'></script>
+<noscript>Your browser does not support script</noscript>
+</td>
+    <td width="634" height="285" valign="top" style="border-style: none; border-width: medium" colspan="2">
+
+<h1><span lang="EN-GB">13<a name="_Toc76807522"><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; ">
+</span>Annotating images</a></span></h1>
+<h2 style="margin-top: 9; margin-bottom: 3"><span lang="EN-GB"><a name="annotate_scalebar">13.1<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Scale bar</a></span></h2>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Scale bars should be present on all 
+publication/presentation images/movies. It’s worth putting them in sooner rather 
+than later. Choose a standard scale bar size for all your images if possible to 
+avoid confusion.</span></font></p>
+<h3 style="margin-top: 9; margin-bottom:3"><a name="_Toc76807524"><span lang="EN-GB">13.1.1<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Spatial calibration</span></a></h3>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">The spatial calibration of an image can 
+be found in ImageJ via the menu item “<i>Image/Properties</i>”. It can be 
+manually (re)applied here also. The units ‘um” are automatically changed to 
+“µm”.</span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Biorad PIC, Noran MOV and Zeiss LSM 
+confocal image files (<i>Leica and Olympus?</i>) are internally calibrated – 
+based on the zoom and objective magnification settings. Some experimental file 
+formats are not calibrated (e.g. Perkin Elmer) and some “exported” image files 
+(e.g. Zeiss zvi’s exported as TIFFs) lose their calibration information. This is 
+sloppy programming on part of the microscope manufacturers and it should be the 
+pointedly drawn to their attention.</span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">If the files have no calibration, you 
+need acquire images of a stage micrometer <i>with the same settings </i>(camera 
+binning, objective, confocal zoom and frame size etc.)<i> </i>as your 
+experiment. The calibration can be applied using the “<i><span style="color: navy">Plugins/Spatial 
+calibration/Set scale</span></i>” command (see below). The spatial calibration 
+can be found (and set) in the “<i>Image/Properties</i>” dialog. Also look at the 
+“<i><span style="color: navy">Microscope scale</span></i></span><!--[if supportFields]><span lang="EN-GB"> 
+XE &quot;<i><span style="color: navy">Microscope scale: </span></i>Paul Baggethun (Paul.Baggethun@ALCOA.COM)&quot;
+</span><![endif]--></font><!--[if supportFields]><![endif]-->
+<font face="Arial" size="2"><span lang="EN-GB">” 
+plugin which can be customised to apply spatial calibrations from a drop-down 
+box of objectives (http://rsb.info.nih.gov/ij/plugins/microscope-scale.html).</span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><b><span lang="EN-GB">Many image processing functions can 
+cause the spatial calibration to be lost</span></b><span lang="EN-GB">– let me 
+or Wayne Rasband know if you find one and we’ll try to fix it. If the final 
+image has lost its calibration open original file and access the spatial 
+calibration via: “<i>Image/Properties</i>”. Copy these values to the “<i>Image/Properties</i>” 
+of your final, processed image. Replacing the word “micron” with “um” will 
+automatically convert to “µm”. </span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">The spatial calibration can be reapplied 
+in three ways: manually via the “<i>Image/Properties</i>” dialog; via the
+<span style="color: navy">“<i>Plugins/Spatial calibration/Copy Pixel Size</i></span></span><!--[if supportFields]><span lang="EN-GB"> 
+XE &quot;<i><span style="color: navy">Copy Pixel Size: </span></i>J. Anthony Parker, 
+MD PhD (<a href="mailto:J.A.Parker@IEEE.org" style="color: blue; text-decoration: underline; text-underline: single">J.A.Parker@IEEE.org</a>)&quot;
+</span><![endif]--></font><!--[if supportFields]><![endif]-->
+<font face="Arial" size="2">
+<span lang="EN-GB" style="color: navy">”<i> </i></span><span lang="EN-GB">
+plugin; or via the “<i><span style="color: navy">Plugins/Spatial calibration/Set 
+scale</span>” </i>command</span></font></p>
+<h4 style="margin-top: 9; margin-bottom: 3"><a name="_Ref64782501"><span lang="EN-GB"><font face="Arial">13.1.1.1</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span></span></a><font face="Arial"><span lang="EN-GB">“Copy-calibration”
+</span></font></h4>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-width: 0" bordercolor="#111111" width="92%" id="AutoNumber5">
+  <tr>
+    <td width="20%" style="border-style: none; border-width: medium" valign="top">
+    <p style="margin-top: 9; margin-bottom: 3"><font size="2">
+    <img border="0" src="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/annota61.jpg" width="163" height="158"></font></td>
+    <td width="57%" style="border-style: none; border-width: medium" valign="top">
+    <ol>
+      <li>
+      <p align="left" style="margin-right: 12; margin-bottom: 3; margin-top:9">
+      <font face="Arial" size="2"><span lang="EN-GB">Re-open 
+  the original image with the calibration</span></font></li>
+  <li class="MsoNormal" style="margin-bottom: .0001pt">
+  <p style="text-align: left; margin-right: 12; margin-bottom: 3; margin-top:9">
+  <font face="Arial"><span lang="EN-GB">Run 
+  the “<i><span style="color: navy">Plugins/Spatial Calibration/Copy Pixel Size</span></i>” 
+  plugin. </span></font></li>
+  <li class="MsoNormal" style="margin-bottom: .0001pt">
+  <p style="text-align: left; margin-right: 12; margin-bottom: 3; margin-top:9">
+  <font face="Arial"><span lang="EN-GB">In the 
+  “<i>from” </i>drop-down box select the original image; in the “<i>to”</i> box, 
+  select your processed image. </span></font></li>
+  <li class="MsoNormal" style="margin-bottom: .0001pt">
+  <p style="text-align: left; margin-right: 12; margin-bottom: 3; margin-top:9">
+  <font face="Arial"><span lang="EN-GB">Click 
+  the OK button.</span></font></li>
+  <li class="MsoNormal" style="text-align: left; margin-bottom: .0001pt">
+  <p style="margin-right: 12; margin-bottom: 3; margin-top:9"><font face="Arial">
+  <span lang="EN-GB">Another dialog will open giving you the opportunity to 
+  enter a value by which the receiving image has been scaled.</span></font></li>
+    </ol>
+    <p style="margin-top: 9; margin-bottom: 3">&nbsp;</td>
+    <td width="23%" style="border-style: none; border-width: medium" valign="top">
+    <p align="center" style="margin-top: 9; margin-bottom: 3"><font size="2">&nbsp;<img border="0" src="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/annota62.jpg" width="181" height="244"></font></td>
+  </tr>
+</table>
+<h4 style="margin-top: 9; margin-bottom: 3"><span lang="EN-GB"><font face="Arial">13.1.1.2</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial">“Set Scale”</font></span></h4>
+<p class="MsoNormal" style="margin-bottom: 3; margin-top:9">
+<font face="Arial" size="2"><span lang="EN-GB">&nbsp;If 
+you know the size of a feature (previously applied scale bar for instance) you 
+can use this command to apply a calibration.</span></font></p>
+<ol style="margin-top: 0cm; margin-bottom: 0cm" start="1" type="1">
+  <li class="MsoNormal" style="text-align: left; margin-bottom: .0001pt">
+  <p style="margin-top: 9; margin-bottom: 3">
+  <font face="Arial">
+  <span lang="EN-GB">Using the line selection tool, draw a ling along the length 
+  of the feature/scale bar.</span></font></li>
+  <li class="MsoNormal" style="text-align: left; margin-bottom: .0001pt">
+  <p style="margin-top: 9; margin-bottom: 3">
+  <span lang="EN-GB"><font face="Arial">Run the menu command “<i><span style="color: navy">Plugins/Spatial 
+  calibration/Set scale</span></i>”</font><a href="/web/20120208074754/http://www.macbiophotonics.ca/imagej/annotating_images.htm#_ftn1" name="_ftnref1" title style="color: blue; text-decoration: underline; text-underline: single"><span class="MsoFootnoteReference"><![if !supportFootnotes]><span lang="EN-GB" style="font-size: 10.0pt; font-family: Arial">[1]</span><![endif]></span></a><font face="Arial">.</font></span></li>
+  <li class="MsoNormal" style="text-align: left; margin-bottom: .0001pt">
+  <p style="margin-top: 9; margin-bottom: 3">
+  <font face="Arial">
+  <span lang="EN-GB">Enter the dimensions of the object/scale bar in the “<i>known 
+  distance”</i> box and set the units in the <i>Unit of length</i> box.</span></font></li>
+  <li class="MsoNormal" style="text-align: left; margin-bottom: .0001pt">
+  <p style="margin-top: 9; margin-bottom: 3">
+  <font face="Arial">
+  <span lang="EN-GB">Do not check <i>Global</i> unless you wish all your images 
+  to have this calibration! Click OK.</span></font></li>
+</ol>
+<p class="MsoNormal" align="left" style="text-align: left; margin-bottom: 3; margin-top:9">
+<font face="Arial" size="2">
+<span lang="EN-GB">&nbsp;</span></font></p>
+<h3 style="margin-top: 9; margin-bottom: 3"><a name="_Toc76807525"><span lang="EN-GB">13.1.2<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Adding scale-bar</span></a><span lang="EN-GB"> </span></h3>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-width: 0" bordercolor="#111111" width="100%" id="AutoNumber2">
+  <tr>
+    <td width="74%" style="border-style: none; border-width: medium" valign="top">
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Use 
+the line ROI tool to draw a line of approximately the desired length and 
+position.</span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3"><span lang="EN-GB">
+<font face="Arial" size="2">Run Scale bar dialog via “<i><span style="color: navy">Plugins/Spatial 
+calibration/Add Scale bar</span></i>”</font><a href="/web/20120208074754/http://www.macbiophotonics.ca/imagej/annotating_images.htm#_ftn2" name="_ftnref2" title style="color: blue; text-decoration: underline; text-underline: single"><span class="MsoFootnoteReference"><![if !supportFootnotes]><span lang="EN-GB" style="font-size: 10.0pt; font-family: Arial">[2]</span><![endif]></span></a><font face="Arial" size="2">. 
+Change the “<i>Width in ***</i>”<i> </i>value to something sensible i.e. 5, 10, 
+50 etc. Stick to something consistent. “<i>Height</i>” will determine how many 
+pixels fat your bar will be. If you’ve used the “Green” LUT then the “white” 
+(i.e. grey level 255) scale-bar will appear green. Convert the image from 8-bit 
+colour to RGB with “<i>Image/Type/RGB color</i>” before adding the scale bar to 
+get a white scale-bar on a pseudocoloured image (see section 6.9.1). Check the “<i>Label 
+all slices</i>” box to add bar to the whole stack.</font></span></p>
+    </td>
+    <td width="26%" style="border-style: none; border-width: medium">
+    <p align="center" style="margin-top: 9; margin-bottom: 3"><font size="2">&nbsp;<img border="0" src="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/annota63.jpg" width="156" height="152"></font></td>
+  </tr>
+</table>
+<h2 style="margin-top: 9; margin-bottom: 3"><span lang="EN-GB"><a name="annotate_text">13.2<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Text and lines</a></span></h2>
+<h3 style="text-indent: -28.9pt; margin-left: 28.9pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<a name="_Toc76807527"><span lang="EN-GB">13.2.1<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Issues with adding text</span></a></h3>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Adding text to single frame images 
+should be done in CorelDRAW or some such application so the text does not become 
+part of the image and can therefore be edited/moved/removed at any time. Adding 
+text to an image/movie is irreversible so should not be done on RAW data. Images 
+can be copied to and pasted from the system clipboard between programs using the 
+“<i><span style="color: navy">Plugins/Utilities/Copy-Paste to clipboard</span></i></span><!--[if supportFields]><span lang="EN-GB"> 
+XE &quot;<i><span style="color: navy">Copy-Paste to clipboard:</span></i>Amrit Aneja 
+and Wayne Rasband&quot; </span><![endif]--></font><!--[if supportFields]><![endif]-->
+<font face="Arial" size="2">
+<span lang="EN-GB">” panel (hot key: Shift+V) – only available using JRE 1.4 and 
+above. If you find the image is not pasting accurately, try using the receiving 
+application’s “<i>Edit/Paste Special</i>” function and select “<i>Device 
+independent bitmap</i>”.</span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Firstly, save your images before adding 
+text. Many things can go wrong here and often cannot be corrected so it’s best 
+to have a saved version ready to reopen.</span></font></p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-width: 0" bordercolor="#111111" width="100%" id="AutoNumber3">
+  <tr>
+    <td width="87%" style="border-style: none; border-width: medium">
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Text colour is set via the colour picker 
+button on the tool bar. Double-click on it to pull up the palette and select a 
+colour – usually black or white. </span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Pseudocoloured 
+images should be converted to RGB prior to adding text. The text is 
+“anti-aliased”. This means that instead of being completely white in colour, 
+some pixels on the curved edges of letters are averaged with neighbouring pixels 
+to be grey, giving a smoother appearance to the text. -&gt;</span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">The 
+text looks better, however, it means that some of the text’s pixels are not 
+grey-scale value 255 and so some LUTs will have them displayed as 
+yellow/orange/green thereby loosing the nice smoothing effect of the 
+antialiasing e.g. with the Hot Green Blue LUT the counter on frame 1 looks 
+like-&gt;</span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">If you use the red or blue LUT then the 
+text will appear red or blue even though you selected the text to be “white” via 
+the colour picker.</span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">To 
+avoid this, convert the pseudocoloured image from its current format (i.e. <i>
+8-bit color</i>) to an RGB image with “<i>Image/Type/RGB color</i>” before 
+adding the text. e.g. in the example above-&gt;</span></font></p>
+    </td>
+    <td width="13%" style="border-style: none; border-width: medium" valign="top">
+    <p style="margin-top: 9; margin-bottom: 3">&nbsp;</p>
+    <p style="margin-top: 9; margin-bottom: 3"><font size="2">&nbsp;<img border="0" src="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/annota1.gif" width="125" height="46"></font></p>
+    <p style="margin-top: 9; margin-bottom: 3"><font size="2">&nbsp;<img border="0" src="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/annota64.gif" width="112" height="46"></font></p>
+    <p style="margin-top: 9; margin-bottom: 3"><font size="2">&nbsp;<img border="0" src="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/annota65.gif" width="127" height="40"></font></td>
+  </tr>
+</table>
+<h3 style="margin-top: 9; margin-bottom: 3"><a name="_Toc76807528"><span lang="EN-GB">13.2.2<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Adding Text/Line/Box</span></a><span lang="EN-GB"> </span></h3>
+<h4 style="margin-top: 9; margin-bottom: 3"><span lang="EN-GB"><font face="Arial">13.2.2.1</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial">Adding to a single image</font></span></h4>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Adding a text line or box to a single 
+frame should be done in a package such as CorelDRAW, Adobe Illustrator, Deneba 
+Canvas etc. (see 6.7.1). However, there are times when lines and boxes are 
+required, e.g. to reference an analysed/sectioned region.</span></font></p>
+<p class="MsoIndex2" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Drawing of lines/boxes is achieved by 
+first <i>selecting</i> the desired line/box in the image with the line/Rectangle 
+ROI tool from the toolbar or defining the line/box via “<i><span style="color: navy">Plugins/Specify 
+ROI…</span></i></span><!--[if supportFields]><i><span lang="EN-GB" style="color: navy"> 
+XE &quot;Specify ROI</span></i><span lang="EN-GB">…: Jeffrey Kuhn (jkuhn@ccwf.cc.utexas.edu), 
+The University of Texas at Austin, Anthony Padua (padua001@mc.duke.edu), Duke 
+University Medical Center, Department of Radiology<i><span style="color: navy">&quot;
+</span></i></span><![endif]--></font><!--[if supportFields]><![endif]-->
+<font face="Arial" size="2">
+<span lang="EN-GB">” or “<i><span style="color: navy">Plugins/Specify Line…</span></i></span><!--[if supportFields]><i><span lang="EN-GB" style="color: navy"> 
+XE &quot;Specify Line…: </span></i><span lang="EN-GB">Wayne Rasband<i><span style="color: navy">&quot;
+</span></i></span><![endif]--></font><!--[if supportFields]><![endif]-->
+<font face="Arial" size="2">
+<span lang="EN-GB">”. The line/box can be resized here to the desired size/shape 
+with the small square handles on the ROI. The line/box can then be stamped in to 
+the image by right clicking on the image and selecting “<i>Draw</i>”. This will 
+add the box/line to a single frame, the colour determined by the by the color 
+picker toolbar button and the width in pixels defined in “<i>Edit/Options/Line 
+width</i>”. </span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Adding text is done by the toolbar’s 
+text button. Click the toolbar; click the image; write the desired text. The 
+font size is set by double clicking the toolbar-text button, the colour 
+determined by the by the color picker toolbar button. Antialiasing can be turned 
+on/off via the menu item “<i>Edit/Options/Miscellaneous</i>” (although this 
+option does not affect the `Stamper plugins which have antialiasing on 
+permanently). The text is stamped in to the image by right clicking and 
+selecting “<i>Draw</i>”.</span></font></p>
+<h4 style="margin-top: 9; margin-bottom: 3"><span lang="EN-GB"><font face="Arial">13.2.2.2</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial">Adding to movie-stack</font></span></h4>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Drawing/writing on a stack only adds the 
+drawn object to the current slice*. If you want the text/box/line to be added to 
+an entire “movie stack” you need to create a new single frame image add the 
+text/box/line to this and then <i>add</i> this single frame to the “movie 
+stack”. This is best done by:</span></font></p>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">1.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial" size="2">Duplicate a frame from the “movie stack” (“<i>Image/Duplicate</i>” and 
+disable “<i>Duplicate entire stack</i>” option). </font> </span></p>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">2.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial" size="2">Rename (“<i>Image/Rename</i>”) “text/box/line image”</font></span></p>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">3.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial" size="2">Select the whole image (“<i>Edit/Selection/Select all</i>” or Shift-A)</font></span></p>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">4.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial" size="2">Edit/Clear</font></span></p>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">5.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial" size="2">Go to the “movie stack” and <i>select</i> the desired text/box/line (see
+<i>6.7.2.1 </i>above).</font></span></p>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">6.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial" size="2">Go to the “text/box/line image” </font> </span></p>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">7.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial" size="2">Restore the selection by “<i>Edit/Selection/Restore</i>”<i> </i>– or 
+Shift-E.</font></span></p>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">8.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span></span><font face="Arial" size="2"><i><span lang="EN-GB">Draw </span></i><span lang="EN-GB">the 
+selection (right click the selection and select <i>Draw</i>)</span></font></p>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">9.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial" size="2">Use the Image Calculator (“<i>Image/Calculator</i>”) to add the 
+“text/box/line image” to the “movie image”.</font></span></p>
+<p class="MsoBodyText" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">*This may become redundant as ImageJ 
+develops. Keep a look out in the ImageJ/News web page.</span></font></p>
+<h3 style="margin-top: 9; margin-bottom: 3"><span lang="EN-GB">
+<a name="annotate_stamps">13.2.3<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Adding timestamps</a></span></h3>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-width: 0" bordercolor="#111111" width="100%" id="AutoNumber4">
+  <tr>
+    <td width="92%" style="border-style: none; border-width: medium">
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 12; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">1.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span></span><font face="Arial" size="2"><span lang="EN-GB">Draw 
+a rectangular ROI at the location and of the approximate size of the desired 
+counter. The text will, by default be of the same height as the ROI and aligned 
+to its left edge. Ensure it is not too close to the edge of the image. This will 
+result in a bar underneath the counter e.g. </span></font></p>
+    </td>
+    <td width="8%" valign="baseline" style="border-style: none; border-width: medium">
+    <p style="margin-top: 9; margin-bottom: 3"><font size="2">
+    <img border="0" src="/web/20120208074754im_/http://www.macbiophotonics.ca/imagej/annota66.gif" width="57" height="29"></font></td>
+  </tr>
+</table>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">2.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font size="2" face="Arial">Run the “<i><span style="color: navy">Plugins/Movies/Time Stamper</span></i><span style="color: navy">”</span></font></span><font face="Arial"><font size="2"><!--[if supportFields]><span lang="EN-GB" style="color: navy"> 
+XE &quot;<i>Time Stamper: </i></span></font><span lang="EN-GB"><font size="2">Wayne Rasband, Tony Collins</font><span style="color: navy"><font size="2">&quot;
+</font>
+</span></span><![endif]--></font><!--[if supportFields]><![endif]-->
+<font face="Arial" size="2"><span lang="EN-GB">
+.</span></font></p>
+<p class="MsoNormal" style="text-indent: -17.85pt; margin-left: 17.85pt; margin-right: 0cm; margin-top: 9; margin-bottom: 3">
+<span lang="EN-GB"><font face="Arial" size="2">3.</font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Arial"><font size="2">
+</font>
+</span><font face="Arial" size="2">Enter appropriate settings. The X and Y location and font size are taken 
+from the ROI and can be changed at this point. </font> </span></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Remember, the bigger the text, the 
+smoother it will look and the easier the timestamp will be to read. Bigger is 
+better. It may be worth changing it to a consistent value for all your movies.
+</span></font></p>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">Also, bear in mind that the interval 
+needn’t be “time&quot;. The Time Stamper plugin also can be used to add “z-axis 
+depths” to z-stacks and “angle of rotation” to rotating volume movies ( ° = 
+Alt+247; µ = Alt+230).</span></font></p>
+<h3 style="margin-top: 9; margin-bottom: 3"><a name="_Toc76807530"><span lang="EN-GB">13.2.4<span style="font-style: normal; font-variant: normal; font-weight: normal; "><font size="2">
+</font>
+</span>Adding event marker to movie</span></a></h3>
+<p class="MsoNormal" style="margin-top: 9; margin-bottom: 3">
+<font face="Arial" size="2"><span lang="EN-GB">The “<i><span style="color: navy">Plugins/Movies/Event 
+Stamper</span>” </i>plugin can be used to add text to a movie for a designated 
+number of frames, e.g. “Agonist ON”. This is simply done by running the <i>Event 
+Stamper </i>plugin setting the desired text in the “Text” box, enter start frame 
+and end frame and click OK. The text size and location is taken from the current 
+ROI and can be changed once the dialog is opened. </span></font></p>
+<div style="mso-element: footnote-list">
+  <p style="margin-top: 9; margin-bottom: 3">
+  <![if !supportFootnotes]><font face="Arial" size="2"><br clear="all">
+&nbsp;</font></p>
+  <hr align="left" size="1" width="33%"><![endif]>
+</div>
+
+    <p class="MsoFootnoteText" style="margin-top:9; margin-bottom:3">
+    <a href="/web/20120208074754/http://www.macbiophotonics.ca/imagej/annotating_images.htm#_ftnref1" name="_ftn1" title style="color: blue; text-decoration: underline; text-underline: single">
+    <span class="MsoFootnoteReference"><span lang="EN-GB"><![if !supportFootnotes]>
+    <span lang="EN-GB" style="font-size: 10.0pt; font-family: Arial">
+    [1]</span><![endif]></span></span></a><font face="Arial"><span lang="EN-GB"><font size="2">
+    </font> </span>
+    <font size="2">This simple plugin simply points to the 
+    native menu command “<i>Analyze/Set scale…”</i> and is included here to keep 
+    the spatial calibration functions in one place.</font></font><div style="mso-element: footnote-list">
+  <div style="mso-element: footnote" id="ftn2">
+    <p class="MsoFootnoteText" style="margin-top: 9; margin-bottom: 3">
+    <a href="/web/20120208074754/http://www.macbiophotonics.ca/imagej/annotating_images.htm#_ftnref2" name="_ftn2" title style="color: blue; text-decoration: underline; text-underline: single">
+    <span class="MsoFootnoteReference"><span lang="EN-GB"><![if !supportFootnotes]>
+    <span lang="EN-GB" style="font-size: 10.0pt; font-family: Arial">
+    [2]</span><![endif]></span></span></a><font face="Arial"><span lang="EN-GB"><font size="2">
+    </font>
+    </span><font size="2">This plugin simply points to the native menu command “<i>Analyze/Tools/Scale 
+    bar…”. </i>It is included here just to keep the spatial calibration 
+    functions in one place.</font></font></div>
+</div>
+
+<p>&nbsp;</td>
+  </tr>
+</table>
+
+
+</body>
+
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 7:47:54 Feb 8, 2012 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 16:32:03 Mar 6, 2013.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
